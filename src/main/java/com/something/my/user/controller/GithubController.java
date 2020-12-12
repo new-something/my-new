@@ -19,7 +19,7 @@ public class GithubController {
 
     @GetMapping("/github/login")
     public RedirectView githubLogin(){
-        return new RedirectView("https://github.com/login/oauth/authorize?scope=read:user&client_id=2a433252e03305352ce2");
+        return new RedirectView("https://github.com/login/oauth/authorize?scope=read:user&client_id=6d91f0584d549619c938");
     }
 
     @GetMapping("/github/redirect")
