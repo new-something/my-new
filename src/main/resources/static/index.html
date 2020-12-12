@@ -25,12 +25,12 @@
 
    -->
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="../css/app.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="/css/app.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
             rel="stylesheet"
@@ -51,13 +51,13 @@
                 &nbsp;Sign In
             </div>
             <div class="btn btn-close" onclick="togglePopup(signinPopup)">
-                <img src="./images/ico-close.svg" alt="close" width="16" />
+                <img src="./images/ico-close.svg" alt="close" width="16"/>
             </div>
         </div>
         <div class="popup-body">
             <div class="signin-banner"></div>
             <div class="signin-buttons">
-                <a href="./shortcuts.html">
+                <a href="/github/login">
                     <div class="btn btn-signin-github">
                         <img
                                 src="./images/ico-app-github.svg"
@@ -67,16 +67,16 @@
                         Sign in with Github Account
                     </div>
                 </a>
-                <a href="./shortcuts.html">
-                    <div class="btn btn-signin-google">
-                        <img
-                                src="./images/ico-app-google.svg"
-                                alt="google"
-                                width="32"
-                        />
-                        Sign in with Google Account
-                    </div>
-                </a>
+                <!--                <a href="./shortcuts.html">-->
+                <!--                    <div class="btn btn-signin-google">-->
+                <!--                        <img-->
+                <!--                                src="./images/ico-app-google.svg"-->
+                <!--                                alt="google"-->
+                <!--                                width="32"-->
+                <!--                        />-->
+                <!--                        Sign in with Google Account-->
+                <!--                    </div>-->
+                <!--                </a>-->
             </div>
             <div class="signin-policies">
                 By signing in, you agree to our <a href="">terms of service</a> and
@@ -89,7 +89,7 @@
     <header class="page-header">
         <a href="./index.html">
             <div class="page-header-brand logo">
-                <img src="./images/logo.svg" alt="logo" /><span class="logo-title"
+                <img src="./images/logo.svg" alt="logo"/><span class="logo-title"
             >my.new</span
             >
             </div>
@@ -104,15 +104,11 @@
                   Give us feedbacks
                   </button> -->
                 <a href="" class="navi-item">Help</a>
-                <div
-                        id="buttonSignIn"
-                        class="btn"
-                        onclick="togglePopup(signinPopup)"
-                >
-                    <img src="./images/img-key.png" width="16" />
+                <div id="buttonSignIn" class="btn" onclick="togglePopup(signinPopup)">
+                    <img src="./images/img-key.png" width="16" alt=""/>
                     <span>
-                Sign In
-              </span>
+                        Sign In
+                    </span>
                 </div>
             </div>
         </div>
@@ -122,14 +118,14 @@
             <h1>
                 .new
                 <span>,</span>
-                <br />
+                <br/>
                 <span>
-              but it’s a personalized <br />
+              but it’s a personalized <br/>
               action-based URL for everyone.
             </span>
             </h1>
             <p>
-                Now, You don't need to rummage the unorganized bookmarks menu <br />
+                Now, You don't need to rummage the unorganized bookmarks menu <br/>
                 or try to remember long and unmemorizable URLs.
             </p>
             <div
@@ -149,31 +145,31 @@
             <div class="try-shortcuts">
                 <div class="shortcut-url">
                     <div class="shortcut-url-host">
-                        <img src="./images/ico-lock.svg" alt="https" />
+                        <img src="./images/ico-lock.svg" alt="https"/>
                         <span>my.new/</span>
                     </div>
                     <div id="trialShortcutKeyword" class="shortcut-url-keyword">
                         <div id="sheetShortcut" class="shortcut-vars active">
-                            <img src="./images/ico-app-gsheet.svg" alt="spreadsheet" />
+                            <img src="./images/ico-app-gsheet.svg" alt="spreadsheet"/>
                             <span>sheet</span>
                         </div>
                         <div id="pyShortcut" class="shortcut-vars">
-                            <img src="./images/ico-python.svg" alt="python" />
+                            <img src="./images/ico-python.svg" alt="python"/>
                             <span>py</span>
                         </div>
                         <div id="boardShortcut" class="shortcut-vars">
-                            <img src="./images/ico-crayon.png" alt="whiteboard" />
+                            <img src="./images/ico-crayon.png" alt="whiteboard"/>
                             <span>board</span>
                         </div>
                         <div id="videocallShortcut" class="shortcut-vars">
-                            <img src="./images/ico-video.png" alt="video call" />
+                            <img src="./images/ico-video.png" alt="video call"/>
                             <span>videocall</span>
                         </div>
                     </div>
                 </div>
                 <a
                         id="buttonOpenInNewTab"
-                        href="https://my.new/sheet"
+                        href="/sheet"
                         target="_blank"
                         class="btn btn-function"
                 >
@@ -203,7 +199,7 @@
                         name="shortcutApp"
                 />
                 <label for="buttonOpenPython">
-                    <img src="./images/ico-python.svg" alt="python" width="24" />
+                    <img src="./images/ico-python.svg" alt="python" width="24"/>
                     python
                 </label>
                 <input
@@ -213,7 +209,7 @@
                         name="shortcutApp"
                 />
                 <label for="buttonOpenBoard">
-                    <img src="./images/ico-crayon.png" alt="board" width="24" />
+                    <img src="./images/ico-crayon.png" alt="board" width="24"/>
                     whiteboard
                 </label>
                 <input
@@ -223,7 +219,7 @@
                         name="shortcutApp"
                 />
                 <label for="buttonOpenVideoCall">
-                    <img src="./images/ico-video.png" alt="board" width="24" />
+                    <img src="./images/ico-video.png" alt="board" width="24"/>
                     videocall
                 </label>
             </form>
@@ -317,17 +313,17 @@
             </div>
             <a href="https://whats.new" target="_blank" class="link-outer"
             >Go to Google's whats.new website
-                <span><img src="./images/logo.svg" alt="outlink" width="12" /></span
+                <span><img src="./images/logo.svg" alt="outlink" width="12"/></span
                 ></a>
             <p>
                 <strong>.new</strong> is google's brand new domain extension, which
-                focuses on creating something new online.<br /><br />
+                focuses on creating something new online.<br/><br/>
                 We love the idea of expanding the value of the web, also expecting
-                more great products will join it.<br /><br />
+                more great products will join it.<br/><br/>
                 However, due to the domain name system's structural restriction,
                 this .new extension has a limitation in which the name's owner can
                 easily monopolize user-favorite actions like play, create, note,
-                etc.<br /><br />
+                etc.<br/><br/>
                 It's a useful corporate branding tool. But we wanted to develop this
                 idea in more user-centric and practical ways, even while keeping its
                 original philosophy.
@@ -336,7 +332,7 @@
     </div>
     <footer class="page-footer">
         <div class="page-footer-brand logo">
-            <img src="./images/logo.svg" alt="logo" /><span class="logo-title"
+            <img src="./images/logo.svg" alt="logo"/><span class="logo-title"
         >my.new</span
         >
         </div>
@@ -352,7 +348,9 @@
       function togglePopup(target) {
         target.classList.toggle("is-active");
       }
-    </script>
+
+
+</script>
 <script>
       // 라디오 버튼 누를 시 인터랙션 샘플 코드
       const radios = document.shortcutTrial.shortcutApp;
@@ -367,10 +365,12 @@
           let addableTarget = document.getElementById(this.value + "Shortcut");
           addableTarget.classList.add("active");
           var link = document.getElementById("buttonOpenInNewTab");
-          link.href = "https://my.new/" + this.value;
+          link.href = this.value;
         });
       }
-    </script>
+
+
+</script>
 <!-- 피드백 수집 툴 샘플 -->
 <script defer src="https://feedback.fish/ff.js?pid=7540e1b055cb6a"></script>
 </body>
