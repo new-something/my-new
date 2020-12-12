@@ -23,7 +23,7 @@ public class GithubController {
     }
 
     @GetMapping("/github/redirect")
-    public String githubAccessToken(
+    public RedirectView githubAccessToken(
             @RequestParam String code
     )
     {
@@ -31,7 +31,7 @@ public class GithubController {
         GithubAccessToken githubAccessToken = githubService.accessToken(code);
         User user = githubService.user(githubAccessToken.getAccessToken());
         log.info("{}", user);
-        return "dashboard";
+        return new RedirectView("/u/dashboard");
     }
 }
 
