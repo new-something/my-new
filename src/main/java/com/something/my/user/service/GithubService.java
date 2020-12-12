@@ -1,5 +1,6 @@
 package com.something.my.user.service;
 
+import com.something.my.global.exception.GithubLoginException;
 import com.something.my.user.domain.User;
 import com.something.my.user.repository.UserRepository;
 import com.something.my.user.service.dto.github.GithubAccessToken;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Log4j2
 @Service
@@ -37,39 +39,46 @@ public class GithubService {
     private final UserRepository userRepository;
 
     public GithubAccessToken accessToken(final String code) {
-        return webClient.post()
-                .uri("https://github.com/login/oauth/access_token")
-                .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-                .body(
-                        BodyInserters.fromFormData("client_id", clientId)
-                                .with("client_secret", clientSecret)
-                                .with("code", code)
-                ).retrieve()
-                .onStatus(httpStatus -> httpStatus.is4xxClientError() || httpStatus.is5xxServerError(),
-                        clientResponse -> clientResponse.bodyToMono(String.class)
-                                .map(RuntimeException::new)
-                ).bodyToMono(GithubAccessToken.class)
-                .flux()
-                .toStream()
-                .findFirst()
-                .orElse(GithubAccessToken.NONE);
+        try {
+            return webClient.post()
+                    .uri("https://github.com/login/oauth/access_token")
+                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                    .body(
+                            BodyInserters.fromFormData("client_id", clientId)
+                                    .with("client_secret", clientSecret)
+                                    .with("code", code)
+                    ).retrieve()
+                    .bodyToMono(GithubAccessToken.class)
+                    .flux()
+                    .toStream()
+                    .findFirst()
+                    .orElse(GithubAccessToken.NONE);
+        } catch (WebClientResponseException e) {
+            throw new GithubLoginException(e.getRawStatusCode(), e.getStatusText(), e.getResponseBodyAsString(),
+                    e.getMessage());
+        }
     }
 
-    public User user(String accessToken){
-        String auth = "token " + accessToken;
-        GithubUser githubUser = webClient.get()
-                .uri("https://api.github.com/user")
-                .header(HttpHeaders.AUTHORIZATION, auth)
-                .retrieve()
-                .bodyToMono(GithubUser.class)
-                .flux()
-                .toStream()
-                .findFirst()
-                .orElse(GithubUser.NONE);
+    public User user(String accessToken) {
+        try {
+            String auth = "token " + accessToken;
+            GithubUser githubUser = webClient.get()
+                    .uri("https://api.github.com/user")
+                    .header(HttpHeaders.AUTHORIZATION, auth)
+                    .retrieve()
+                    .bodyToMono(GithubUser.class)
+                    .flux()
+                    .toStream()
+                    .findFirst()
+                    .orElse(GithubUser.NONE);
 
-        log.info(githubUser);
-        User user = githubUser.toUser();
-        userRepository.save(user);
-        return user;
+            log.info(githubUser);
+            User user = githubUser.toUser();
+            userRepository.save(user);
+            return user;
+        } catch (WebClientResponseException e) {
+            throw new GithubLoginException(e.getRawStatusCode(), e.getStatusText(), e.getResponseBodyAsString(),
+                    e.getMessage());
+        }
     }
 }

@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    mode: HTML5
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,3 +20,7 @@ github:
 google:
   clientId: 737679013674-q9efp32jd44hu4gmetvavqr64d9rj97h.apps.googleusercontent.com
   clientSecret: XBnvqLH9rpK9P2aNkSouUhwY
+server:
+  error:
+    whitelabel:
+      enabled: false

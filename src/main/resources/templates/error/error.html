@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Error Page</title>
+</head>
+<body>
+<div>
+    <h1>Error Page</h1>
+    error code : <span th:text="${statusCode}"></span>
+    <br>error text : <span th:text="${statusText}"></span>
+    <br>error body : <span th:text="${responseBody}"></span>
+    <br>error message : <span th:text="${message}"></span>
+</div>
+
+</body>
+</html>
