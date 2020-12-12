@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: my_new_user
+    password: my_new_user
+    url: jdbc:mysql://my-new.cs4i16kyfber.ap-northeast-2.rds.amazonaws.com:3306/my_new
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+github:
+  clientId: 2a433252e03305352ce2
+  clientSecret: 2155664999d02d15f1146140914fa08747ca3a31
+google:
+  clientId: 737679013674-q9efp32jd44hu4gmetvavqr64d9rj97h.apps.googleusercontent.com
+  clientSecret: XBnvqLH9rpK9P2aNkSouUhwY
