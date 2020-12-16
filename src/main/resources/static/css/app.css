@@ -410,7 +410,7 @@ a.link-outer:active {
     width: 100%;
     height: 160px;
     background-color: black;
-    background-image: url("./images/img-signin.jpg");
+    background-image: url("../images/img-signin.jpg");
     background-size: 120%;
     background-position: center center;
 }
