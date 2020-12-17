@@ -783,6 +783,7 @@ a.link-outer:active {
     color: #666;
 }
 
+.page-header-navi div#buttonSignOut,
 .page-header-navi div#buttonSignIn {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -793,12 +794,14 @@ a.link-outer:active {
     padding: 0 15px;
 }
 
+.page-header-navi div#buttonSignOut img,
 .page-header-navi div#buttonSignIn img {
     width: 16px;
     height: 16px;
     margin-right: 8px;
 }
 
+.page-header-navi div#buttonSignOut span,
 .page-header-navi div#buttonSignIn span {
     line-height: 42px;
 }
