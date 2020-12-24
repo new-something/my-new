@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Table(name = "user")
 @Builder
 @EqualsAndHashCode(of = "id")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User implements Serializable {
 
     public static final User EMPTY = new User();
