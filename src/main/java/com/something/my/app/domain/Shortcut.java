@@ -9,18 +9,19 @@ import javax.persistence.*;
 @Entity
 @ToString
 @Table(name = "shortcut")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "shortcutId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Shortcut {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shortcutSeqGen")
     @SequenceGenerator(name = "shortcutSeqGen", sequenceName = "SHORTCUT_SEQ_GEN", allocationSize = 25)
-    private Long id;
+    private Long shortcutId;
 
     private String path;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private App app;
+    @JoinColumn(name = "connected_id")
+    @ManyToOne
+    private ConnectedApp app;
 }

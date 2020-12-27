@@ -1,8 +1,7 @@
 package com.something.my.app.controller;
 
 import com.something.my.app.controller.dto.ConnectAppRequest;
-import com.something.my.app.domain.App;
-import com.something.my.app.domain.AppType;
+import com.something.my.app.domain.ConnectedApp;
 import com.something.my.app.repository.AppRepository;
 import com.something.my.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +22,19 @@ public class AppRestController {
     private final AppRepository appRepository;
 
     @GetMapping("/apis/apps")
-    public ResponseEntity<List<App>> findApps(
+    public ResponseEntity<List<ConnectedApp>> findApps(
             HttpServletRequest request
     ) {
         User session = (User) request.getSession().getAttribute(SESSION);
-        List<App> apps = appRepository.findAppByUserId(session.getId());
+        List<ConnectedApp> apps = appRepository.findByUserId(session.getUserId());
         return ResponseEntity.ok(apps);
     }
 
     @GetMapping("/apis/apps/{id}")
-    public ResponseEntity<App> findOne(
+    public ResponseEntity<ConnectedApp> findOne(
             @PathVariable Long id
     ) {
-        App app = appRepository.findById(id).orElseThrow();
-        return ResponseEntity.ok(app);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/apis/apps")
@@ -45,22 +43,13 @@ public class AppRestController {
             @RequestBody ConnectAppRequest request
     ) throws URISyntaxException {
         User session = (User) req.getSession().getAttribute(SESSION);
-        AppType appType = AppType.valueOf(request.getAppType());
-        App app = App.builder()
-                .appName(request.getAppName())
-                .appType(appType)
-                .user(session)
-                .build();
-        App save = appRepository.save(app);
-        return ResponseEntity.created(new URI("/apis/apps/" + save.getId())).build();
+        return ResponseEntity.created(new URI("/apis/apps/" + 1)).build();
     }
 
     @DeleteMapping("/apis/apps/{id}")
     public ResponseEntity<Void> disconnectApp(
             @PathVariable Long id
     ) {
-        App app = App.builder().id(id).build();
-        appRepository.delete(app);
         return ResponseEntity.noContent().build();
     }
 }

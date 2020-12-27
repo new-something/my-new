@@ -1,12 +1,22 @@
 package com.something.my.app.repository;
 
 
-import com.something.my.app.domain.App;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.something.my.app.domain.ConnectedApp;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
-public interface AppRepository extends JpaRepository<App, Long> {
+@Repository
+@RequiredArgsConstructor
+public class AppRepository {
 
-    List<App> findAppByUserId(Long userId);
+    private final EntityManager em;
+
+    public List<ConnectedApp> findByUserId(Long userId) {
+        return em.createQuery("SELECT a FROM ConnectedApp a WHERE a.user.userId =:userId", ConnectedApp.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
 }

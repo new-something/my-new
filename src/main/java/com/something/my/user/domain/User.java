@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 @Table(name = "user")
 @Builder
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "userId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class User implements Serializable {
@@ -20,7 +20,7 @@ public class User implements Serializable {
     public static final User EMPTY = new User();
 
     @Id
-    private Long id;
+    private Long userId;
 
     private String userName;
 
