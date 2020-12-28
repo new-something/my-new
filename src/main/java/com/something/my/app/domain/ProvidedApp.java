@@ -18,6 +18,7 @@ public class ProvidedApp {
     @Id
     private Long appCode;
     private String appName;
+    private String appIcon;
     private String domain;
 
     @ManyToMany(mappedBy = "providedApps")

@@ -33,3 +33,5 @@ public class ConnectedApp {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 }
+
+

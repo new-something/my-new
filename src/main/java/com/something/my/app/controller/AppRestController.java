@@ -2,9 +2,10 @@ package com.something.my.app.controller;
 
 import com.something.my.app.controller.dto.ConnectAppRequest;
 import com.something.my.app.domain.ConnectedApp;
-import com.something.my.app.repository.AppRepository;
+import com.something.my.app.service.AppService;
 import com.something.my.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +16,21 @@ import java.util.List;
 
 import static com.something.my.global.utils.Keys.SESSION;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 public class AppRestController {
 
-    private final AppRepository appRepository;
+    private final AppService appService;
 
     @GetMapping("/apis/apps")
-    public ResponseEntity<List<ConnectedApp>> findApps(
-            HttpServletRequest request
+    public ResponseEntity<List<Object[]>> findApps(
+            HttpServletRequest request,
+            @RequestParam String tag
     ) {
+        log.info(tag);
         User session = (User) request.getSession().getAttribute(SESSION);
-        List<ConnectedApp> apps = appRepository.findByUserId(session.getUserId());
+        List<Object[]> apps = appService.findProvidedApp(tag);
         return ResponseEntity.ok(apps);
     }
 

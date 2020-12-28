@@ -1,7 +1,7 @@
 package com.something.my.app.repository;
 
 
-import com.something.my.app.domain.ConnectedApp;
+import com.something.my.app.domain.AppTagType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +14,19 @@ public class AppRepository {
 
     private final EntityManager em;
 
-    public List<ConnectedApp> findByUserId(Long userId) {
-        return em.createQuery("SELECT a FROM ConnectedApp a WHERE a.user.userId =:userId", ConnectedApp.class)
-                .setParameter("userId", userId)
+    @SuppressWarnings("unchecked")
+    public List<Object[]> findAllByTag(AppTagType tagType) {
+        return em.createQuery("SELECT pa.appCode, pa.appName, pa.domain, pa.appIcon " +
+                "FROM AppTag at JOIN at.providedApps pa WHERE at.tagName = :tagName")
+                .setParameter("tagName", tagType)
                 .getResultList();
     }
+
+    @SuppressWarnings("unchecked")
+    public List<Object[]> findAll() {
+        return em.createQuery("SELECT pa.appCode, pa.appName, pa.domain, pa.appIcon " +
+                "FROM AppTag at JOIN at.providedApps pa GROUP BY pa.appCode")
+                .getResultList();
+    }
+
 }

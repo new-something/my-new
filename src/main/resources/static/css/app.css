@@ -1,7 +1,7 @@
 html {
     font-size: 18px;
-  }
-  
+}
+
 bohtml {
     font-size: 18px;
 }
@@ -140,9 +140,12 @@ a .btn {
 .btn:active {
     border: 1px solid rgba(0, 0, 0, 0.3);
     background-color: #f8f8f8;
+    -webkit-box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.15);
 }
 
-.btn.isDisabled {
+.btn.is-disabled {
     color: #eee;
     background-color: transparent;
     -webkit-box-shadow: none;
@@ -161,24 +164,24 @@ a .btn {
 
 .btn-primary:active,
 .btn-save:active {
-    background-color: #111111;
+    background-color: #000000;
 }
 
-.btn-save.isDisabled {
+.btn-save.is-disabled {
     background-color: transparent;
     cursor: not-allowed;
 }
 
-.btn-save.isDisabled svg {
+.btn-save.is-disabled svg {
     fill: black;
     opacity: 0.4;
 }
 
-.btn-save.isDisabled:active {
+.btn-save.is-disabled:active {
     border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.btn-save.isDisabled svg {
+.btn-save.is-disabled svg {
     fill: black;
     opacity: 0.2;
 }
@@ -242,8 +245,11 @@ a.link-outer:active {
     color: #111111;
 }
 
-/* 로딩 프로그레스 */
+.hidden {
+    display: none !important;
+}
 
+/* 로딩 프로그레스 */
 .loading {
     position: fixed;
     top: 0;
@@ -260,10 +266,6 @@ a.link-outer:active {
 
 .loading.isLoaded {
     opacity: 0;
-}
-
-.loading.hidden {
-    display: none;
 }
 
 .loading .progress-dots {
@@ -428,6 +430,10 @@ a.link-outer:active {
     margin: 30px 40px;
 }
 
+#signinPopup .signin-buttons > a {
+    text-decoration: none;
+}
+
 #signinPopup .signin-buttons > a > div {
     margin: 10px 0;
     padding: 10px;
@@ -450,18 +456,18 @@ a.link-outer:active {
 
 /* 앱 목록 팝업 */
 
-#appListPopup {
+#app-list-modal {
     display: none;
 }
 
-#appListPopup.is-active {
+#app-list-modal.is-active {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 }
 
-#appListPopup .modal-popup,
-#appSetupPopup .modal-popup {
+#app-list-modal .modal-popup,
+#app-detail-modal .modal-popup {
     width: 680px;
     height: 520px;
     overflow: hidden;
@@ -471,25 +477,25 @@ a.link-outer:active {
     -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
 }
-#appListPopup .modal-popup .popup-header,
-#appSetupPopup .modal-popup .popup-header {
+#app-list-modal .modal-popup .popup-header,
+#app-detail-modal .modal-popup .popup-header {
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
 }
-#appListPopup .modal-popup .popup-body {
+#app-list-modal .modal-popup .popup-body {
     display: flex;
 }
-#appListPopup .modal-popup .app-category {
+#app-list-modal .modal-popup .app-category {
     display: flex;
     flex-direction: column;
     width: 30%;
     padding: 20px 0;
 }
-#appListPopup .modal-popup .app-category input[name="appListCatrgory"] {
+#app-list-modal .modal-popup .app-category input[name="app-list-tag"] {
     display: none;
 }
-#appListPopup .modal-popup .app-category label {
+#app-list-modal .modal-popup .app-category label {
     display: block;
     font-family: "poppins", sans-serif;
     font-weight: bold;
@@ -500,15 +506,15 @@ a.link-outer:active {
     cursor: pointer;
     border-radius: 8px;
 }
-#appListPopup
-    .modal-popup
-    .app-category
-    input[name="appListCatrgory"]:checked
-    + label {
+#app-list-modal
+.modal-popup
+.app-category
+input[name="app-list-tag"]:checked
++ label {
     background-color: #000000;
     color: #fff;
 }
-#appListPopup .modal-popup .app-list {
+#app-list-modal .modal-popup .app-list {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -517,8 +523,8 @@ a.link-outer:active {
     padding: 20px;
     overflow-y: auto;
 }
-#appListPopup .app-list .app-ltem,
-#appListPopup .app-list .app-url-ltem {
+#app-list-modal .app-list .app-item,
+#app-list-modal .app-list .app-url-item {
     position: relative;
     justify-content: flex-start;
     width: 200px;
@@ -527,26 +533,26 @@ a.link-outer:active {
     margin: 8px;
     border-radius: 12px;
 }
-#appListPopup .app-list .app-url-ltem {
+#app-list-modal .app-list .app-url-item {
     background-color: #f0f6ff;
 }
-#appListPopup .app-list .app-url-ltem:active {
+#app-list-modal .app-list .app-url-item:active {
     background-color: #e7edf7;
 }
-#appListPopup .app-list .app-name {
+#app-list-modal .app-list .app-name {
     margin-left: 15px;
 }
-#appListPopup .app-list .app-status-text {
+#app-list-modal .app-list .app-status-text {
     display: none;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 0.8rem;
     color: #666;
 }
-#appListPopup .is-connected .app-status-text {
+#app-list-modal .is-connected .app-status-text {
     display: block;
 }
-#appListPopup .app-list .app-status-icon,
-#appSetupPopup .app-status-icon {
+#app-list-modal .app-list .app-status-icon,
+#app-detail-modal .app-status-icon {
     display: none;
     align-items: center;
     justify-content: center;
@@ -555,56 +561,56 @@ a.link-outer:active {
     width: 20px;
     height: 20px;
 }
-#appListPopup .app-list .app-status-icon {
+#app-list-modal .app-list .app-status-icon {
     position: absolute;
     top: 8px;
     right: 8px;
     padding-top: 1px;
 }
-#appListPopup .is-connected .app-status-icon,
-#appSetupPopup.is-connected .app-status-icon {
+#app-list-modal .is-connected .app-status-icon,
+#app-detail-modal.is-connected .app-status-icon {
     display: flex;
 }
-#appListPopup .app-status-icon svg {
+#app-list-modal .app-status-icon svg {
     fill: white;
 }
 
 /* 앱 연결 설정 팝업 */
-#appSetupPopup {
+#app-detail-modal {
     display: none;
 }
-#appSetupPopup.is-active {
+#app-detail-modal.is-active {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 }
-#appSetupPopup .popup-navigation {
+#app-detail-modal .popup-navigation {
     display: flex;
     align-items: center;
 }
-#appSetupPopup .popup-navigation .btn-back {
+#app-detail-modal .popup-navigation .btn-back {
     width: 42px;
     height: 42px;
     padding-right: 2px;
     margin-right: 15px;
 }
-#appSetupPopup .popup-body {
+#app-detail-modal .popup-body {
     padding: 30px 40px 0 40px;
     overflow-y: auto;
     max-height: 450px;
 }
-#appSetupPopup .popup-body .app-header {
+#app-detail-modal .popup-body .app-header {
     display: flex;
 }
-#appSetupPopup .app-header .app-information {
+#app-detail-modal .app-header .app-information {
     margin: 0 24px;
 }
-#appSetupPopup .app-header .app-information .app-name {
+#app-detail-modal .app-header .app-information .app-name {
     display: flex;
     align-items: center;
     position: relative;
 }
-#appSetupPopup .app-header .app-information .app-name .app-name-text {
+#app-detail-modal .app-header .app-information .app-name .app-name-text {
     display: inline-block;
     max-width: 340px;
     white-space: nowrap;
@@ -612,17 +618,17 @@ a.link-outer:active {
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-#appSetupPopup .app-header .app-information .app-name .app-status-icon {
+#app-detail-modal .app-header .app-information .app-name .app-status-icon {
     margin-left: 8px;
     display: none;
 }
-#appSetupPopup.is-connected .app-information .app-name .app-status-icon {
+#app-detail-modal.is-connected .app-information .app-name .app-status-icon {
     display: flex;
 }
-#appSetupPopup .app-name .app-status-icon svg {
+#app-detail-modal .app-name .app-status-icon svg {
     fill: white;
 }
-#appSetupPopup .app-header .app-information .app-description {
+#app-detail-modal .app-header .app-information .app-description {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -632,17 +638,17 @@ a.link-outer:active {
     max-height: 4.5rem;
     margin: 10px 0;
 }
-#appSetupPopup .app-header .app-connection .btn-connect {
+#app-detail-modal .app-header .app-connection .btn-connect {
     width: 120px;
     height: 48px;
     justify-content: center;
     border-radius: 12px;
     padding: 0;
 }
-#appSetupPopup.is-connected .app-connection .btn-connect {
+#app-detail-modal.is-connected .app-connection .btn-connect {
     display: none;
 }
-#appSetupPopup .app-header .app-connection .btn-disconnect {
+#app-detail-modal .app-header .app-connection .btn-disconnect {
     display: none;
     width: 130px;
     height: 48px;
@@ -650,25 +656,25 @@ a.link-outer:active {
     border-radius: 12px;
     padding: 0;
 }
-#appSetupPopup.is-connected .app-connection .btn-disconnect {
+#app-detail-modal.is-connected .app-connection .btn-disconnect {
     display: flex;
 }
-#appSetupPopup .list-actions {
+#app-detail-modal .list-actions {
     font-family: "poppins", sans-serif;
     font-weight: bold;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     margin-top: 30px;
     padding-top: 20px;
 }
-#appSetupPopup .list-actions h3 {
+#app-detail-modal .list-actions h3 {
     margin-bottom: 15px;
 }
-#appSetupPopup .list-actions .item-action,
-#appSetupPopup .list-actions .item-action * {
+#app-detail-modal .list-actions .item-action,
+#app-detail-modal .list-actions .item-action * {
     display: flex;
     align-items: center;
 }
-#appSetupPopup .list-actions .item-action {
+#app-detail-modal .list-actions .item-action {
     justify-content: space-between;
     padding: 20px;
     margin: 5px 0;
@@ -676,10 +682,10 @@ a.link-outer:active {
     border-radius: 12px;
     opacity: 0.3;
 }
-#appSetupPopup.is-connected .list-actions .item-action {
+#app-detail-modal.is-connected .list-actions .item-action {
     opacity: 1;
 }
-#appSetupPopup .list-actions .item-action .app-name {
+#app-detail-modal .list-actions .item-action .app-name {
     display: inline-block;
     max-width: 320px;
     white-space: nowrap;
@@ -687,13 +693,13 @@ a.link-outer:active {
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-#appSetupPopup .list-actions .item-action .btn-add-shortcut {
+#app-detail-modal .list-actions .item-action .btn-add-shortcut {
     width: 180px;
     height: 42px;
     cursor: not-allowed;
     box-shadow: none;
 }
-#appSetupPopup.is-connected .list-actions .item-action .btn-add-shortcut {
+#app-detail-modal.is-connected .list-actions .item-action .btn-add-shortcut {
     -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -1047,13 +1053,18 @@ a.link-outer:active {
     padding: 6px;
     border-radius: 8px;
     cursor: pointer;
+    display: none;
+}
+
+.ico-app.is-connected {
+    display: flex;
 }
 
 .section-apps .ico-app:active {
     background-color: #eee;
 }
 
-.section-apps .ico-app.add-new {
+.section-apps .add-new {
     width: 48px;
     height: 48px;
     margin: 6px 21px 21px 21px;
@@ -1067,6 +1078,10 @@ a.link-outer:active {
 
 .section-shortcuts .list-shortcuts-empty {
     text-align: center;
+}
+.list-shortcuts-empty .content-columns {
+    text-align: left;
+    margin-top: 60px;
 }
 
 .section-shortcuts .item-shortcut,
@@ -1115,7 +1130,6 @@ a.link-outer:active {
 .section-shortcuts .item-url-shortcut .shortcut .shortcut-keyword {
     display: block;
     width: 100%;
-    max-width: 230px;
     margin-bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
@@ -1136,15 +1150,15 @@ a.link-outer:active {
 }
 
 .section-shortcuts
-    .item-shortcut
-    .shortcut
-    .shortcut-url
-    .shortcut-url-with-keyword,
+.item-shortcut
+.shortcut
+.shortcut-url
+.shortcut-url-with-keyword,
 .section-shortcuts
-    .item-url-shortcut
-    .shortcut
-    .shortcut-url
-    .shortcut-url-with-keyword {
+.item-url-shortcut
+.shortcut
+.shortcut-url
+.shortcut-url-with-keyword {
     white-space: nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;
@@ -1211,11 +1225,11 @@ a.link-outer:active {
 }
 
 .section-shortcuts
-    .item-url-shortcut
-    .app
-    .connected-app
-    .app-url
-    .destination-url {
+.item-url-shortcut
+.app
+.connected-app
+.app-url
+.destination-url {
     display: block;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 15px;
@@ -1233,68 +1247,74 @@ a.link-outer:active {
 
 /* 다른 카드 편집 중일 때 */
 
-.section-shortcuts .item-shortcut.cantEdit,
-.section-shortcuts .item-url-shortcut.cantEdit {
-    opacity: 0.5;
+/* 카드 편집 중일 때 */
+.item-shortcut.is-editing ~ .item-shortcut {
+    opacity: 0.3;
     cursor: not-allowed;
 }
-
-.section-shortcuts .item-shortcut.cantEdit .app .connected-app .app-name,
-.section-shortcuts
-    .item-url-shortcut.cantEdit
-    .app
-    .connected-app
-    .app-url
-    .app-name,
-.section-shortcuts
-    .item-url-shortcut.cantEdit
-    .app
-    .connected-app
-    .app-url
-    .destination-url {
+.item-shortcut.is-editing ~ .item-shortcut .btn-edit {
+    display: none;
+}
+.item-shortcut.is-editing ~ .item-shortcut .app-name,
+.item-url-shortcut.is-editing ~ .item-url-shortcut .app-name,
+.item-url-shortcut.is-editing ~ .item-url-shortcut .destination-url {
     max-width: 290px;
 }
 
-.section-shortcuts .item-shortcut.cantEdit .buttons,
-.section-shortcuts .item-url-shortcut.cantEdit .buttons {
+.item-shortcut .btn-save,
+.item-shortcut .btn-delete,
+.item-url-shortcut .btn-save,
+.item-url-shortcut .btn-delete {
     display: none;
 }
+.item-shortcut.is-editing .btn-save,
+.item-shortcut.is-editing .btn-delete,
+.item-url-shortcut.is-editing .btn-save,
+.item-url-shortcut.is-editing .btn-delete {
+    display: flex;
+}
+.item-shortcut.is-editing .btn-edit,
+.item-url-shortcut.is-editing .btn-edit {
+    display: none;
+}
+.item-shortcut .btn-edit,
+.item-url-shortcut .btn-edit {
+    display: flex;
+}
 
-/* 카드 편집 중일 때 */
-
-.section-shortcuts .item-shortcut.isEditing,
-.section-shortcuts .item-url-shortcut.isEditing {
+.section-shortcuts .item-shortcut.is-editing,
+.section-shortcuts .item-url-shortcut.is-editing {
     border: 1px solid #bbb;
     -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-.section-shortcuts .item-shortcut.isEditing [contenteditable="true"] br,
-.section-shortcuts .item-url-shortcut.isEditing [contenteditable="true"] br {
+.section-shortcuts .item-shortcut.is-editing [contenteditable="true"] br,
+.section-shortcuts .item-url-shortcut.is-editing [contenteditable="true"] br {
     display: none;
 }
 
-.section-shortcuts .item-shortcut.isEditing [contenteditable="true"] *,
-.section-shortcuts .item-url-shortcut.isEditing [contenteditable="true"] * {
+.section-shortcuts .item-shortcut.is-editing [contenteditable="true"] *,
+.section-shortcuts .item-url-shortcut.is-editing [contenteditable="true"] * {
     display: inline;
     white-space: nowrap;
 }
 
-.section-shortcuts .item-shortcut.isEditing .shortcut,
-.section-shortcuts .item-url-shortcut.isEditing .shortcut {
+.section-shortcuts .item-shortcut.is-editing .shortcut,
+.section-shortcuts .item-url-shortcut.is-editing .shortcut {
     min-height: 68px;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
 }
 
-.section-shortcuts .item-shortcut.isEditing .shortcut-url,
-.section-shortcuts .item-url-shortcut.isEditing .shortcut-url {
+.section-shortcuts .item-shortcut.is-editing .shortcut-url,
+.section-shortcuts .item-url-shortcut.is-editing .shortcut-url {
     display: none;
 }
 
-.section-shortcuts .item-shortcut.isEditing .shortcut .shortcut-keyword,
-.section-shortcuts .item-url-shortcut.isEditing .shortcut .shortcut-keyword {
+.section-shortcuts .item-shortcut.is-editing .shortcut .shortcut-keyword,
+.section-shortcuts .item-url-shortcut.is-editing .shortcut .shortcut-keyword {
     outline: 0;
     margin-bottom: 0;
     overflow: hidden;
@@ -1304,30 +1324,30 @@ a.link-outer:active {
 }
 
 .section-shortcuts
-    .item-url-shortcut.isEditing
-    .app
-    .connected-app
-    .app-url
-    .app-name {
+.item-url-shortcut.is-editing
+.app
+.connected-app
+.app-url
+.app-name {
     display: none;
 }
 
-.section-shortcuts .item-shortcut.isEditing .app .connected-app .app-name,
+.section-shortcuts .item-shortcut.is-editing .app .connected-app .app-name,
 .section-shortcuts
-    .item-url-shortcut.isEditing
-    .app
-    .connected-app
-    .app-url
-    .destination-url {
+.item-url-shortcut.is-editing
+.app
+.connected-app
+.app-url
+.destination-url {
     max-width: 200px;
 }
 
 .section-shortcuts
-    .item-url-shortcut.isEditing
-    .app
-    .connected-app
-    .app-url
-    .destination-url {
+.item-url-shortcut.is-editing
+.app
+.connected-app
+.app-url
+.destination-url {
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;

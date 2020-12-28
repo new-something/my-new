@@ -17,7 +17,8 @@ public class AppTag {
     @Id
     private Long appTagId;
 
-    private String tagName;
+    @Enumerated(EnumType.STRING)
+    private AppTagType tagName;
 
     @ManyToMany
     @JoinTable(
