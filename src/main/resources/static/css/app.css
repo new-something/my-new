@@ -490,6 +490,7 @@ a.link-outer:active {
     display: flex;
     flex-direction: column;
     width: 30%;
+    height: 450px;
     padding: 20px 0;
 }
 #app-list-modal .modal-popup .app-category input[name="app-list-tag"] {
@@ -520,7 +521,8 @@ input[name="app-list-tag"]:checked
     align-items: flex-start;
     align-content: flex-start;
     width: 70%;
-    padding: 20px;
+    height: 450px;
+    padding: 10px;
     overflow-y: auto;
 }
 #app-list-modal .app-list .app-item,
@@ -528,7 +530,7 @@ input[name="app-list-tag"]:checked
     position: relative;
     justify-content: flex-start;
     width: 200px;
-    min-height: 80px;
+    min-height: 95px;
     padding: 8px 16px;
     margin: 8px;
     border-radius: 12px;

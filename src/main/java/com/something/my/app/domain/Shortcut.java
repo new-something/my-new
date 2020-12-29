@@ -21,6 +21,8 @@ public class Shortcut {
 
     private String path;
 
+    private String targetUrl;
+
     @JoinColumn(name = "connected_id")
     @ManyToOne
     private ConnectedApp app;
