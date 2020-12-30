@@ -86,14 +86,21 @@ function renderUrlRedirection() {
 
 function renderAppList(apps) {
     let appListWrapper = document.querySelector('.app-list');
+    console.log(apps);
     for (let app of apps) {
         let appWrapper = document.createElement('div');
+        if (app.connected) {
+            appWrapper.classList.add('is-connected')
+        }
         appWrapper.classList.add('btn');
         appWrapper.classList.add('app-item');
+        appWrapper.addEventListener('click', function () {
+            appDetailModal.classList.add('is-active');
+        });
 
         let iconWrapper = document.createElement('div');
         let iconImage = document.createElement('img');
-        iconImage.setAttribute('src', '/images/' + app[3]);
+        iconImage.setAttribute('src', '/images/' + app.appIcon);
         iconImage.setAttribute('width', 42);
         iconImage.setAttribute('alt', '');
         iconWrapper.append(iconImage);
@@ -103,27 +110,22 @@ function renderAppList(apps) {
 
         let appNameText = document.createElement('div');
         appNameText.classList.add('app-name-text')
-        appNameText.innerText = app[1];
+        appNameText.innerText = app.appName;
 
         appNameWrapper.append(appNameText);
 
         let connectStatus = document.createElement('div');
         connectStatus.classList.add('app-status-text');
-        connectStatus.innerText = 'connected';
+        connectStatus.innerText = 'Is connected';
 
         appNameWrapper.append(connectStatus);
 
         let connectStatusIconWrapper = document.createElement('div');
         connectStatusIconWrapper.classList.add('app-status-icon');
-        let connectSvg = document.createElement('svg');
-        connectSvg.setAttribute('viewBox', '0 0 32 24');
-        connectSvg.setAttribute('width', 10);
-        connectSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        let svgPath = document.createElement('path');
-        svgPath.setAttribute('d', 'M10.8686 23.5286L0.46861 13.0688C-0.156203 12.4404 -0.156203 11.4215 0.46861 10.7931L2.7313 8.51731C3.35611 7.88884 4.36924 7.88884 4.99405 8.51731L12 15.5635L27.0059 0.471304C27.6308 -0.157101 28.6439 -0.157101 29.2687 0.471304L31.5314 2.74707C32.1562 3.37547 32.1562 4.39436 31.5314 5.02283L13.1314 23.5287C12.5065 24.1571 11.4934 24.1571 10.8686 23.5286Z');
+        let connectImg = document.createElement('img');
+        connectImg.src = '/images/ico-connected.svg';
 
-        connectSvg.append(svgPath);
-        connectStatusIconWrapper.append(connectSvg);
+        connectStatusIconWrapper.append(connectImg);
 
         appNameWrapper.append(connectStatusIconWrapper);
 
@@ -133,44 +135,8 @@ function renderAppList(apps) {
     }
 }
 
-// 앱 숏컷 아이템 입력 validation
-// document.querySelector('#appShortcutItem .shortcut-keyword').addEventListener("keyup", e => {
-//     let appShortcutItem = document.querySelector('#appShortcutItem');
-//     if (e.target.textContent.length > 0) {
-//         let target = appShortcutItem.querySelector('.btn-save');
-//         target.classList.remove('is-disabled');
-//         return;
-//     }
-//     let saveButton = appShortcutItem.querySelector('.btn-save');
-//     saveButton.classList.add('is-disabled');
-// });
 
-// URL 숏컷 아이템 입력 validation
-// document.querySelector('#urlShortcutItem .shortcut-keyword').addEventListener("keyup", e => {
-//     console.log(e.target);
-//     let urlShortcutItem = document.querySelector('#urlShortcutItem');
-//     let inputURLShortcutDestination = document.querySelector('#urlShortcutItem .destination-url')
-//     if (e.target.textContent.length > 0 && inputURLShortcutDestination.textContent.length > 3) {
-//         let target = urlShortcutItem.querySelector('.btn-save');
-//         target.classList.remove('is-disabled');
-//         return;
-//     }
-//     let saveButton = urlShortcutItem.querySelector('.btn-save');
-//     saveButton.classList.add('is-disabled');
-// });
 
-// document.querySelector('#urlShortcutItem .destination-url').addEventListener("keyup", e => {
-//     console.log(e.target);
-//     let urlShortcutItem = document.querySelector('#urlShortcutItem');
-//     let inputURLShortcutKeyword = document.querySelector('#urlShortcutItem .shortcut-keyword');
-//     if (inputURLShortcutKeyword.textContent.length > 0 && e.target.textContent.length > 3) {
-//         let target = urlShortcutItem.querySelector('.btn-save');
-//         target.classList.remove('is-disabled');
-//         return;
-//     }
-//     let saveButton = urlShortcutItem.querySelector('.btn-save');
-//     saveButton.classList.add('is-disabled');
-// });
 
 /**
  * url shortcut 수정 버튼

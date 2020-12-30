@@ -20,6 +20,7 @@ public class ProvidedApp {
     private String appName;
     private String appIcon;
     private String domain;
+    private String description;
 
     @ManyToMany(mappedBy = "providedApps")
     private final List<AppTag> appTags = new ArrayList<>();

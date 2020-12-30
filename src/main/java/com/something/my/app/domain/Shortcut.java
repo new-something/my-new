@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
+@Builder
 @ToString
 @Table(name = "shortcut")
 @EqualsAndHashCode(of = "shortcutId")
@@ -21,9 +22,12 @@ public class Shortcut {
 
     private String path;
 
-    private String targetUrl;
+    private String destinationUrl;
+
+    @Enumerated(EnumType.STRING)
+    private ShortcutType type;
 
     @JoinColumn(name = "connected_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ConnectedApp app;
 }

@@ -107,6 +107,19 @@ function urlShortcutItemComponent() {
 
         // api call needed
         console.log('저장이 필요해');
+        let destinationUrl = destinationUrlDiv.textContent
+        let path = keywordDiv.textContent;
+        axios.post('/apis/url-redirections', {path, destinationUrl}).then(function (resp) {
+            console.log(resp);
+            wrapper.classList.remove('is-editing');
+            keywordDiv.setAttribute('contenteditable', 'false');
+            destinationUrlDiv.setAttribute('contenteditable', 'false');
+
+            // 수정 가능 상태의 아이템이 활성화 되어 있을 경우 다른 버튼들은 숨겨주자.
+            document.querySelector('#add-new-app-btn').classList.remove('hidden');
+        }).catch(function (err) {
+            console.log(err);
+        });
     });
     urlShortcutSaveBtnDiv.classList.add('btn');
     urlShortcutSaveBtnDiv.classList.add('btn-save');
@@ -121,6 +134,7 @@ function urlShortcutItemComponent() {
     urlShortcutDeleteBtnDiv.addEventListener('click', function () {
         wrapper.remove();
         document.querySelector('#add-new-app-btn').classList.remove('hidden');
+        console.log('delete api 가 필요해');
     });
     urlShortcutDeleteBtnDiv.classList.add('btn');
     urlShortcutDeleteBtnDiv.classList.add('btn-delete');

@@ -21,6 +21,9 @@ google:
   clientId: 737679013674-q9efp32jd44hu4gmetvavqr64d9rj97h.apps.googleusercontent.com
   clientSecret: XBnvqLH9rpK9P2aNkSouUhwY
 server:
+  servlet:
+    session:
+      timeout: 1200m
   error:
     whitelabel:
       enabled: false

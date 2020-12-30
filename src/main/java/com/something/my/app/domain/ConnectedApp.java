@@ -4,6 +4,8 @@ import com.something.my.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 @Getter
@@ -22,15 +24,15 @@ public class ConnectedApp {
     @SequenceGenerator(name = "connectedAppIdSeqGen", sequenceName = "CONNECTED_APP_ID_SEQ_GEN", allocationSize = 20)
     private Long connectedId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "connect_type")
-    private ConnectType connectType;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "app_code")
     private ProvidedApp providedApp;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "app", cascade = CascadeType.ALL)
+    private final Set<Shortcut> shortcuts = new LinkedHashSet<>();
+
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
 }
 

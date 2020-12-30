@@ -1,6 +1,6 @@
 package com.something.my.app.controller;
 
-import com.something.my.app.repository.ShortcutRepository;
+import com.something.my.app.service.ShortcutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
 @RequiredArgsConstructor
 public class ShortcutRestController {
 
-    private final ShortcutRepository shortcutRepository;
+    private final ShortcutService shortcutService;
 
     @GetMapping("/apis/shortcuts")
     public ResponseEntity<?> findAllByAppId(
@@ -30,7 +30,7 @@ public class ShortcutRestController {
 
     @PostMapping("/apis/shortcuts")
     public ResponseEntity<Void> create() throws URISyntaxException {
-        return ResponseEntity.created(new URI("")).build();
+        return ResponseEntity.created(new URI("/apis/shortcuts/")).build();
     }
 
     @PutMapping("/apis/shortcuts")

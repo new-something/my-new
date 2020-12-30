@@ -262,18 +262,19 @@
         </div>
         <div class="section section-apps">
             <h2>Connected Apps</h2>
-            <section class="list-apps">
-                <!-- Loop: App List -->
-                <div id="githubInConnectedAppList" class="ico-app is-connected" onclick="togglePopup('appDetailPopup')">
-                    <img src="/images/ico-app-github.svg" width="48" title="Github" alt=""/>
-                </div>
-                <div id="asanaInConnectedAppList" class="ico-app" onclick="togglePopup('appDetailPopup')">
-                    <img src="/images/ico-app-asana.svg" width="48" title="Asana" alt=""/>
-                </div>
-                <div id="add-new-app-btn" class="btn add-new">
-                    <img src="/images/ico-plus.svg" alt="add" width="16"/>
+            <section class="list-apps" th:each="connectedApp : ${dashBoardData.connectedApps}">
+                <div class="ico-app is-connected">
+                    <img th:src="@{${'/images/' + connectedApp.appIcon}}"
+                         th:title="@{${connectedApp.appName}}"
+                         th:code="@{${connectedApp.appCode}}"
+                         th:cid="@{${connectedApp.connectedId}}"
+                         th:domain="@{${connectedApp.domain}}"
+                         width="48" alt=""/>
                 </div>
             </section>
+            <div id="add-new-app-btn" class="btn add-new">
+                <img src="/images/ico-plus.svg" alt="add" width="16"/>
+            </div>
         </div>
         <div class="section section-shortcuts">
             <h2>My Shortcuts</h2>
@@ -472,8 +473,12 @@
         </footer>
     </div>
 </div>
+<script>
+    let dashBoardData = '[[${dashBoardData}]]'
+    console.log(dashBoardData);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="/js/dashboard-dom.js"></script>
+<script src="/js/dashboard-link-shortcut.js"></script>
 <script src="/js/dashboard-event.js"></script>
 <script src="/js/dashboard.js"></script>
 <!-- 피드백 수집 툴 샘플 -->

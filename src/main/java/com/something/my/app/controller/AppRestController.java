@@ -2,7 +2,9 @@ package com.something.my.app.controller;
 
 import com.something.my.app.controller.dto.ConnectAppRequest;
 import com.something.my.app.domain.ConnectedApp;
+import com.something.my.app.domain.ProvidedApp;
 import com.something.my.app.service.AppService;
+import com.something.my.app.service.dto.ProvidedAppResponse;
 import com.something.my.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,13 +26,13 @@ public class AppRestController {
     private final AppService appService;
 
     @GetMapping("/apis/apps")
-    public ResponseEntity<List<Object[]>> findApps(
+    public ResponseEntity<List<ProvidedAppResponse>> findApps(
             HttpServletRequest request,
             @RequestParam String tag
     ) {
         log.info(tag);
         User session = (User) request.getSession().getAttribute(SESSION);
-        List<Object[]> apps = appService.findProvidedApp(tag);
+        List<ProvidedAppResponse> apps = appService.findProvidedApp(session, tag);
         return ResponseEntity.ok(apps);
     }
 
