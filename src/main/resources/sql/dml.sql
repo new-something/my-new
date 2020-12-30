@@ -4,7 +4,7 @@ INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, descripti
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (3, 'Airtable', 'https://airtable.com', 'ico-app-airtable.svg', '에어테이블');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (4, 'AM Charts', 'https://www.amcharts.com', 'ico-app-amcharts.svg', '에이엠차트');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (5, 'Asana', 'https://asana.com', 'ico-app-asana.svg', '아사나');
-INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (6, 'Bitbucket', 'https://www.atlassian.com/software/bitbucket', 'ico-app-bithucket.svg', '빗버킷');
+INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (6, 'Bitbucket', 'https://www.atlassian.com/software/bitbucket', 'ico-app-bitbucket.svg', '빗버킷');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (7, 'Bitly', 'https://bit.ly', 'ico-app-bitly.svg', '비틀리');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (8, 'Board', 'https://letsboard.co', 'ico-app-board.svg', '보드');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (9, 'Buffer', 'https://buffer.com', 'ico-app-buffer.svg', '버퍼');
@@ -22,7 +22,7 @@ INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, descripti
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (21, 'Github', 'https://github.com', 'ico-app-github.svg', '깃헙');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (22, 'Glitch', 'https://glitch.com', 'ico-app-glitch.svg', '글리치');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (23, 'Gmail', 'https://gmail.com', 'ico-app-gmail.svg', '지메일');
-INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (24, 'Google Calendar', 'https://calendar.google.com', 'ico-app-gcalendar.svg', '구글 캘린더');
+INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (24, 'Google Calendar', 'https://calendar.google.com', 'ico-app.gcalendar.svg', '구글 캘린더');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (25, 'Google Docs', 'https://google.com/docs/about', 'ico-app-gdocs.svg', '구글 닥스');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (26, 'Google Forms', 'https://google.com/forms/about', 'ico-app-gform.svg', '구글 폼');
 INSERT INTO my_new.provided_app (app_code, app_name, domain, app_icon, description) VALUES (27, 'Google Keep', 'https://google.com/keep', 'ico-app-keep.svg', '구글 킵');
