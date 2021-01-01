@@ -4,12 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
-@Entity
 @ToString
+@Entity(name = "ProvidedApp")
 @Table(name = "provided_app")
 @EqualsAndHashCode(of = "appCode")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,6 +24,12 @@ public class ProvidedApp {
     private String domain;
     private String description;
 
+    @OneToMany(mappedBy = "providedApp")
+    private final Set<ConnectedApp> connectedApp = new LinkedHashSet<>();
+
     @ManyToMany(mappedBy = "providedApps")
     private final List<AppTag> appTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "providedApp", cascade = CascadeType.ALL)
+    private final Set<ProvidedAction> providedActions = new LinkedHashSet<>();
 }

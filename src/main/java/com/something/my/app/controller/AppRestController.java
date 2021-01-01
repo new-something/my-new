@@ -2,8 +2,8 @@ package com.something.my.app.controller;
 
 import com.something.my.app.controller.dto.ConnectAppRequest;
 import com.something.my.app.domain.ConnectedApp;
-import com.something.my.app.domain.ProvidedApp;
-import com.something.my.app.service.AppService;
+import com.something.my.app.service.AppQueryService;
+import com.something.my.app.service.ConnectedAppService;
 import com.something.my.app.service.dto.ProvidedAppResponse;
 import com.something.my.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,9 @@ import static com.something.my.global.utils.Keys.SESSION;
 @RequiredArgsConstructor
 public class AppRestController {
 
-    private final AppService appService;
+    private final AppQueryService appService;
+
+    private final ConnectedAppService connectedAppService;
 
     @GetMapping("/apis/apps")
     public ResponseEntity<List<ProvidedAppResponse>> findApps(
@@ -48,8 +50,10 @@ public class AppRestController {
             HttpServletRequest req,
             @RequestBody ConnectAppRequest request
     ) throws URISyntaxException {
+        request.validate();
         User session = (User) req.getSession().getAttribute(SESSION);
-        return ResponseEntity.created(new URI("/apis/apps/" + 1)).build();
+        Long id = connectedAppService.connect(request.getAppCode(), session);
+        return ResponseEntity.created(new URI("/apis/apps/" + id)).build();
     }
 
     @DeleteMapping("/apis/apps/{id}")

@@ -6,9 +6,9 @@ import javax.persistence.*;
 
 
 @Getter
-@Entity
 @Builder
 @ToString
+@Entity(name = "Shortcut")
 @Table(name = "shortcut")
 @EqualsAndHashCode(of = "shortcutId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

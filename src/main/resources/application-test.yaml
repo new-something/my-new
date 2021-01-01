@@ -1,6 +1,6 @@
 spring:
   thymeleaf:
-    mode: HTML5
+    mode: HTML
   jpa:
     hibernate:
       ddl-auto: update
@@ -8,6 +8,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+    open-in-view: false
   datasource:
     username: my_new_user
     password: my_new_user

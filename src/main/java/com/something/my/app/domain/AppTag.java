@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity
 @ToString
+@Entity(name = "AppTag")
 @Table(name = "app_tag")
 @EqualsAndHashCode(of = "appTagId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

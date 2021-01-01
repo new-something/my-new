@@ -3,6 +3,7 @@ let appDetailModal = document.querySelector("#app-detail-modal");
 
 // 새로운 앱 추가하기 버튼
 document.querySelector('#add-new-app-btn').addEventListener('click', function () {
+    document.querySelector('#tag-all').click();
     appListTagChangeHandler();
     appListModal.classList.add('is-active');
 });
@@ -17,10 +18,32 @@ document.querySelector('#app-detail-modal-back-btn').addEventListener('click', f
     appDetailModal.classList.remove('is-active');
 });
 
-// 앱 디테일 모답 닫기 버튼
+// 앱 디테일 모달 닫기 버튼
 document.querySelector('#app-detail-modal-close-btn').addEventListener('click', function () {
     appListModal.classList.remove('is-active');
     appDetailModal.classList.remove('is-active');
+});
+
+// 앱 디테일 모달에서 앱 연동 버튼
+document.querySelector('#app-connect-btn').addEventListener('click', function () {
+    // TODO : connect api call.
+    let appCode = document.querySelector("#app-detail-modal").getAttribute('app-code');
+    axios.post('/apis/apps', {appCode})
+        .then(function (response) {
+            // TODO : app-detail-modal, app-list-modal, connected app 3 군데 연동 표시.
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+});
+
+// 앱 디테일 모달에서 앱 연동 해제 버튼
+document.querySelector('#app-disconnect-btn').addEventListener('click', function () {
+    let disconnect = confirm('If you disconnect Asana, all the Asana shortcuts will be deleted. Are you sure to continue to disconnect?');
+    if (disconnect) {
+        // TODO : disconnect api call, remove shortcuts about disconnected app.
+    }
 });
 
 let appListTagRadios = document.querySelectorAll('input[name=app-list-tag]');
@@ -54,7 +77,6 @@ function renderUrlRedirection() {
     let urlRedirectionWrapper = document.createElement('div');
     urlRedirectionWrapper.classList.add('btn');
     urlRedirectionWrapper.classList.add('app-url-item');
-    urlRedirectionWrapper.classList.add('btn');
     urlRedirectionWrapper.addEventListener('click', function () {
         appListModal.classList.remove('is-active');
         appDetailModal.classList.remove('is-active');
@@ -95,6 +117,60 @@ function renderAppList(apps) {
         appWrapper.classList.add('btn');
         appWrapper.classList.add('app-item');
         appWrapper.addEventListener('click', function () {
+            console.log(app);
+            document.querySelector("#app-detail-modal").setAttribute('app-code', app.appCode);
+            document.querySelector('#app-icon-in-detail-modal').src = '/images/' + app.appIcon;
+            document.querySelector('#app-name-in-detail-modal').textContent = app.appName;
+            document.querySelector('#app-description-in-detail-modal').textContent = app.description;
+            let appDomainAnchor = document.querySelector('#app-domain-in-detail-modal');
+            appDomainAnchor.textContent = app.domain;
+            appDomainAnchor.href = app.domain;
+            if (app.connected) {
+                document.querySelector('#app-detail-modal').classList.add('is-connected');
+            } else {
+                document.querySelector('#app-detail-modal').classList.remove('is-connected');
+            }
+
+            let appActionItems = document.querySelector('#app-action-items');
+            appActionItems.innerHTML = ''
+            let title = document.createElement('h3');
+            title.textContent = 'Actions';
+            appActionItems.append(title);
+
+            let providedActions = app.providedActions;
+            console.log(providedActions);
+            for (let providedAction of providedActions) {
+                console.log(providedAction);
+                let action = document.createElement('div');
+                action.classList.add('action-list');
+                let item = document.createElement('div');
+                item.classList.add('item-action');
+                let connectedApp = document.createElement('div');
+                connectedApp.classList.add('connected-app');
+                let appIcon = document.createElement('div');
+                appIcon.classList.add('app-icon');
+                let appIconImg = document.createElement('img');
+                appIconImg.src = '/images/' + app.appIcon;
+                appIconImg.width = 32;
+                appIconImg.alt = '';
+                appIcon.append(appIconImg);
+                let appName = document.createElement('div');
+                appName.classList.add('app-name');
+                appName.textContent = providedAction.description;
+                connectedApp.append(appIcon);
+                connectedApp.append(appName);
+                let buttons = document.createElement('div');
+                buttons.classList.add('buttons');
+                let addBtn = document.createElement('div');
+                addBtn.classList.add('btn');
+                addBtn.classList.add('btn-add-shortcut');
+                addBtn.textContent = 'Add to shortcut';
+                buttons.append(addBtn);
+                item.append(connectedApp);
+                item.append(buttons);
+                action.append(item);
+                appActionItems.append(action);
+            }
             appDetailModal.classList.add('is-active');
         });
 
@@ -134,106 +210,3 @@ function renderAppList(apps) {
         appListWrapper.appendChild(appWrapper);
     }
 }
-
-
-
-
-/**
- * url shortcut 수정 버튼
- */
-// document.querySelector('#url-shortcut-edit-btn').addEventListener('click', function () {
-//     let urlShortcutItem = document.querySelector('#urlShortcutItem');
-//     urlShortcutItem.classList.add('is-editing');
-//     urlShortcutItem.classList.remove('hidden');
-//
-//     let inputURLShortcutKeyword = urlShortcutItem.querySelector('.shortcut-keyword');
-//     let inputDestinationURL = urlShortcutItem.querySelector('.destination-url');
-//
-//     inputDestinationURL.setAttribute('contenteditable', 'true');
-//     inputURLShortcutKeyword.setAttribute('contenteditable', 'true');
-//     inputURLShortcutKeyword.focus();
-//
-    // 수정 가능 상태의 아이템이 활성화 되어 있을 경우 다른 버튼들은 숨겨주자.
-    // document.querySelector('#add-new-app-btn').classList.add('hidden');
-
-    // connected Apps에 보여지는 샘플 앱의 onclick 이벤트 무효화
-    // githubInConnectedAppList.style.pointerEvents = 'none';
-    // asanaInConnectedAppList.style.pointerEvents = 'none';
-// });
-
-/**
- * url shortcut 저장 버튼
- */
-// document.querySelector('#url-shortcut-save-btn').addEventListener('click', function (){
-//     let urlShortcutItem = document.querySelector('#urlShortcutItem');
-//     let inputURLShortcutKeyword = urlShortcutItem.querySelector('.shortcut-keyword');
-//     let inputURLShortcutDestination = urlShortcutItem.querySelector('.destination-url');
-//     let printedShortcutURL = urlShortcutItem.querySelector('.shortcut-url-with-keyword');
-//     let hrefShortcutURL = urlShortcutItem.querySelector('a');
-//
-//     let keyword = inputURLShortcutKeyword.textContent;
-//     let destinationUrl = inputURLShortcutDestination.textContent;
-//
-//     let computedKeyword = keyword.replace(/\s+/g, '-').replace(/[^A-Za-z0-9_-]/g, '').toLowerCase();
-//     let URLValidator = true // URL Validation 추가해야 함.
-//
-    // 입력된 값을 체크하여 저장 가능한 형태로 변경한다.
-    // inputURLShortcutKeyword.textContent = printedShortcutURL.textContent = computedKeyword;
-    // hrefShortcutURL.setAttribute('href', 'https://my.new/' + computedKeyword);
-
-    // if (keyword.length > 0 && destinationUrl.length > 3 && URLValidator === true) {
-    //     urlShortcutItem.classList.remove('is-editing');
-    //
-    //     let inputURLShortcutKeyword = urlShortcutItem.querySelector('.shortcut-keyword');
-    //     let inputDestinationURL = urlShortcutItem.querySelector('.destination-url');
-    //
-    //     inputDestinationURL.setAttribute('contenteditable', false);
-    //     inputURLShortcutKeyword.setAttribute('contenteditable', false);
-    // } else {
-    //     document.querySelector('#urlShortcutItem .shortcut-keyword').focus();
-    //
-    //     let saveButton = urlShortcutItem.querySelector('.btn-save');
-    //     saveButton.classList.add('is-disabled');
-    //
-        // 숏컷 리스트의 상태를 확인하자.
-        // let shortcutList = document.querySelectorAll('.list-shortcuts .hidden');
-
-        // if (shortcutList.length === 3) {
-        //     shortcutListState('empty');
-        // } else {
-        //     shortcutListState('notEmpty');
-        // }
-
-        // 기본 상태로 변경 될 때 다른 버튼을 사용가능하게 바꿔주자.
-        // document.querySelector('#add-new-app-btn').classList.remove('hidden');
-
-        // connected Apps에 보여지는 샘플 앱의 onclick 이벤트 되돌리기
-        // githubInConnectedAppList.style.pointerEvents = 'auto';
-        // asanaInConnectedAppList.style.pointerEvents = 'auto';
-    // }
-// });
-
-// document.querySelector('#url-shortcut-delete-btn').addEventListener('click', function () {
-//     let urlShortcutItem = document.querySelector('#urlShortcutItem');
-//     urlShortcutItem.classList.add('hidden');
-//     document.querySelector('#urlShortcutItem .shortcut-keyword').focus();
-//
-//     let saveButton = urlShortcutItem.querySelector('.btn-save');
-//     saveButton.classList.add('is-disabled');
-
-    // 숏컷 리스트의 상태를 확인하자.
-    // let shortcutList = document.querySelectorAll('.list-shortcuts .hidden');
-
-    // if (shortcutList.length === 3) {
-    //     shortcutListState('empty');
-    // } else {
-    //     shortcutListState('notEmpty');
-    // }
-
-    // 기본 상태로 변경 될 때 다른 버튼을 사용가능하게 바꿔주자.
-    // document.querySelector('#add-new-app-btn').classList.remove('hidden');
-
-    // connected Apps에 보여지는 샘플 앱의 onclick 이벤트 되돌리기
-    // githubInConnectedAppList.style.pointerEvents = 'auto';
-    // asanaInConnectedAppList.style.pointerEvents = 'auto';
-// });

@@ -19,29 +19,6 @@ function shortcutListState(state) {
     }
 }
 
-// Mock Interaction - 앱 디테일 페이지에서 Connect / Disconnect 버튼을 눌렀을 때의 상태 변경
-function changeAppConnectivity(state) {
-    if (state === 'connect') {
-        let targets = ['appDetailPopup', 'asanaInAppList', 'asanaInConnectedAppList'];
-        targets.forEach(target => target.classList.toggle('is-connected'));
-    } else if (state === 'disconnect') {
-        let disconnect = confirm('If you disconnect Asana, all the Asana shortcuts will be deleted. Are you sure to continue to disconnect?');
-        if (disconnect) {
-            let targets = ['appDetailPopup', 'asanaInAppList', 'asanaInConnectedAppList'];
-            targets.forEach(target => target.classList.toggle('is-connected'));
-            appShortcutItem.classList.add('hidden');
-            // 숏컷 리스트의 상태를 확인하자.
-            let shortcutList = document.querySelectorAll('.list-shortcuts .hidden');
-
-            if (shortcutList.length === 3) {
-                shortcutListState('empty');
-            } else {
-                shortcutListState('notEmpty');
-            }
-        }
-    }
-}
-
 // Mock Interaction - 앱 디테일 페이지에서 Add To Shortcut 버튼을 눌렀을 때
 function whenClickAddShortcutButton(type) {
     // Empty 상태이던 목록에 새로운 아이템이 추가된다. 해당 아이템은 is-editing 상태

@@ -486,17 +486,17 @@ a.link-outer:active {
 #app-list-modal .modal-popup .popup-body {
     display: flex;
 }
-#app-list-modal .modal-popup .app-category {
+#app-list-modal .modal-popup .app-tag {
     display: flex;
     flex-direction: column;
     width: 30%;
     height: 450px;
     padding: 20px 0;
 }
-#app-list-modal .modal-popup .app-category input[name="app-list-tag"] {
+#app-list-modal .modal-popup .app-tag input[name="app-list-tag"] {
     display: none;
 }
-#app-list-modal .modal-popup .app-category label {
+#app-list-modal .modal-popup .app-tag label {
     display: block;
     font-family: "poppins", sans-serif;
     font-weight: bold;
@@ -509,7 +509,7 @@ a.link-outer:active {
 }
 #app-list-modal
 .modal-popup
-.app-category
+.app-tag
 input[name="app-list-tag"]:checked
 + label {
     background-color: #000000;

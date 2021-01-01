@@ -6,9 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Entity
 @Builder
 @ToString
+@Entity(name = "UrlRedirection")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class UrlRedirection {

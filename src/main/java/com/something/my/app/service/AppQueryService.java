@@ -1,7 +1,7 @@
 package com.something.my.app.service;
 
 import com.something.my.app.domain.AppTagType;
-import com.something.my.app.domain.ConnectedApp;
+import com.something.my.app.domain.ProvidedApp;
 import com.something.my.app.repository.AppRepository;
 import com.something.my.app.service.dto.ConnectedAppResponse;
 import com.something.my.app.service.dto.ProvidedAppResponse;
@@ -18,11 +18,11 @@ import static com.something.my.app.domain.AppTagType.ALL;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class AppService {
+public class AppQueryService {
 
     private final AppRepository appRepository;
 
-    public List<ProvidedAppResponse> findProvidedApp(User session, String tagName){
+    public List<ProvidedAppResponse> findProvidedApp(User session, String tagName) {
         AppTagType appTagType = AppTagType.valueOf(tagName);
         if (appTagType == ALL) {
             List<ConnectedAppResponse> connectedAppsByUser = appRepository.findConnectedAppsByUser(session)
@@ -30,9 +30,13 @@ public class AppService {
                     .map(ConnectedAppResponse::new)
                     .collect(Collectors.toList());
 
-            List<ProvidedAppResponse> providedAppResponses = appRepository.findAllProvidedApps().stream()
+            List<ProvidedApp> allProvidedApps = appRepository.findAllProvidedApps();
+            List<ProvidedAppResponse> providedAppResponses = allProvidedApps
+                    .stream()
+                    .distinct()
                     .map(ProvidedAppResponse::new)
                     .collect(Collectors.toList());
+
             checkConnected(providedAppResponses, connectedAppsByUser);
             return providedAppResponses;
         }
@@ -42,7 +46,10 @@ public class AppService {
                 .map(ConnectedAppResponse::new)
                 .collect(Collectors.toList());
 
-        List<ProvidedAppResponse> providedAppResponses = appRepository.findAllProvidedAppsByTag(appTagType).stream()
+        List<ProvidedApp> allProvidedAppsByTag = appRepository.findAllProvidedAppsByTag(appTagType);
+        List<ProvidedAppResponse> providedAppResponses = allProvidedAppsByTag
+                .stream()
+                .distinct()
                 .map(ProvidedAppResponse::new)
                 .collect(Collectors.toList());
 

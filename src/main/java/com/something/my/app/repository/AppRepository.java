@@ -18,23 +18,23 @@ public class AppRepository {
     private final EntityManager em;
 
     public List<ProvidedApp> findAllProvidedAppsByTag(AppTagType tagType) {
-        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN pa.appTags at WHERE at.tagName = :tagName", ProvidedApp.class)
+        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN pa.appTags at JOIN FETCH pa.providedActions WHERE at.tagName = :tagName", ProvidedApp.class)
                 .setParameter("tagName", tagType)
                 .getResultList();
     }
 
     public List<ProvidedApp> findAllProvidedApps() {
-        return em.createQuery("SELECT pa FROM ProvidedApp pa", ProvidedApp.class).getResultList();
+        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN FETCH pa.providedActions", ProvidedApp.class).getResultList();
     }
 
     public List<ConnectedApp> findConnectedAppsByUser(User user) {
-        return em.createQuery("SELECT ca FROM ConnectedApp ca WHERE ca.user = :user", ConnectedApp.class)
+        return em.createQuery("SELECT ca FROM ConnectedApp ca JOIN FETCH ca.providedApp WHERE ca.user = :user", ConnectedApp.class)
                 .setParameter("user", user)
                 .getResultList();
     }
 
     public List<ConnectedApp> findConnectedAppsByUserAndTag(User user, AppTagType tagType) {
-        return em.createQuery("SELECT ca FROM ConnectedApp ca JOIN ca.providedApp.appTags at WHERE ca.user = :user AND at.tagName = :tagName", ConnectedApp.class)
+        return em.createQuery("SELECT ca FROM ConnectedApp ca JOIN FETCH ca.providedApp JOIN ca.providedApp.appTags at WHERE ca.user = :user AND at.tagName = :tagName", ConnectedApp.class)
                 .setParameter("user", user)
                 .setParameter("tagName", tagType)
                 .getResultList();

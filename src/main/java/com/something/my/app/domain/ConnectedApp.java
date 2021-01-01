@@ -9,9 +9,9 @@ import java.util.Set;
 
 
 @Getter
-@Entity
-@ToString
 @Builder
+@ToString
+@Entity(name = "ConnectedApp")
 @Table(name = "connected_app")
 @EqualsAndHashCode(of = "connectedId")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,12 +28,12 @@ public class ConnectedApp {
     @JoinColumn(name = "app_code")
     private ProvidedApp providedApp;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "app", cascade = CascadeType.ALL)
     private final Set<Shortcut> shortcuts = new LinkedHashSet<>();
-
-    @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private User user;
 }
 
 
