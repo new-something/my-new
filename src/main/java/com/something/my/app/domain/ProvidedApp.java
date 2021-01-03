@@ -32,4 +32,10 @@ public class ProvidedApp {
 
     @OneToMany(mappedBy = "providedApp", cascade = CascadeType.ALL)
     private final Set<ProvidedAction> providedActions = new LinkedHashSet<>();
+
+    public static ProvidedApp of(Long appCode) {
+        ProvidedApp providedApp = new ProvidedApp();
+        providedApp.appCode = appCode;
+        return providedApp;
+    }
 }

@@ -169,9 +169,9 @@
                 </div>
                 <div class="app-connection">
                     <!-- 앱이 연동되지 않았을 때 -->
-                    <div id="app-connect-btn" class="btn btn-primary btn-connect" onclick="changeAppConnectivity('connect')">Connect</div>
+                    <div id="app-connect-btn" class="btn btn-primary btn-connect">Connect</div>
                     <!-- 앱이 연동 되었을 때 -->
-                    <div id="app-disconnect-btn" class="btn btn-delete btn-disconnect" onclick="changeAppConnectivity('disconnect')">
+                    <div id="app-disconnect-btn" class="btn btn-delete btn-disconnect">
                         Disconnect
                     </div>
                 </div>
@@ -262,8 +262,8 @@
         </div>
         <div class="section section-apps">
             <h2>Connected Apps</h2>
-            <section class="list-apps" th:each="connectedApp : ${dashBoardData.connectedApps}">
-                <div class="ico-app is-connected">
+            <section id="connected-apps" class="list-apps">
+                <div class="ico-app is-connected" th:each="connectedApp : ${dashBoardData.connectedApps}">
                     <img th:src="@{${'/images/' + connectedApp.appIcon}}"
                          th:title="@{${connectedApp.appName}}"
                          th:code="@{${connectedApp.appCode}}"
@@ -271,10 +271,11 @@
                          th:domain="@{${connectedApp.domain}}"
                          width="48" alt=""/>
                 </div>
+                <div id="add-new-app-btn" class="btn add-new">
+                    <img src="/images/ico-plus.svg" alt="add" width="16"/>
+                </div>
             </section>
-            <div id="add-new-app-btn" class="btn add-new">
-                <img src="/images/ico-plus.svg" alt="add" width="16"/>
-            </div>
+
         </div>
         <div class="section section-shortcuts">
             <h2>My Shortcuts</h2>
@@ -473,9 +474,11 @@
         </footer>
     </div>
 </div>
-<script>
-    let dashBoardData = '[[${dashBoardData}]]'
-    console.log(dashBoardData);
+<script th:inline="javascript">
+    window.connectedApps = JSON.parse('[[${dashBoardData.connectedApps}]]');
+    window.urlRedirections =  JSON.parse('[[${dashBoardData.urlRedirections}]]');
+    console.log(window.connectedApps);
+    console.log(window.urlRedirections);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/dashboard-link-shortcut.js"></script>

@@ -30,10 +30,8 @@ public class AppQueryService {
                     .map(ConnectedAppResponse::new)
                     .collect(Collectors.toList());
 
-            List<ProvidedApp> allProvidedApps = appRepository.findAllProvidedApps();
-            List<ProvidedAppResponse> providedAppResponses = allProvidedApps
+            List<ProvidedAppResponse> providedAppResponses = appRepository.findAllProvidedApps()
                     .stream()
-                    .distinct()
                     .map(ProvidedAppResponse::new)
                     .collect(Collectors.toList());
 
@@ -46,10 +44,8 @@ public class AppQueryService {
                 .map(ConnectedAppResponse::new)
                 .collect(Collectors.toList());
 
-        List<ProvidedApp> allProvidedAppsByTag = appRepository.findAllProvidedAppsByTag(appTagType);
-        List<ProvidedAppResponse> providedAppResponses = allProvidedAppsByTag
+        List<ProvidedAppResponse> providedAppResponses = appRepository.findAllProvidedAppsByTag(appTagType)
                 .stream()
-                .distinct()
                 .map(ProvidedAppResponse::new)
                 .collect(Collectors.toList());
 

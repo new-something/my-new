@@ -7,7 +7,8 @@ import lombok.ToString;
 @Getter
 @ToString
 public final class ConnectedAppResponse {
-    private final Long appCode;
+    private final long appCode;
+    private final long connectedId;
     private final String appName;
     private final String appIcon;
     private final String domain;
@@ -15,6 +16,7 @@ public final class ConnectedAppResponse {
 
     public ConnectedAppResponse(ConnectedApp connectedApp) {
         this.appCode = connectedApp.getProvidedApp().getAppCode();
+        this.connectedId = connectedApp.getConnectedId();
         this.appName = connectedApp.getProvidedApp().getAppName();
         this.appIcon = connectedApp.getProvidedApp().getAppIcon();
         this.domain = connectedApp.getProvidedApp().getDomain();

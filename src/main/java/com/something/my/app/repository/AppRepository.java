@@ -18,13 +18,13 @@ public class AppRepository {
     private final EntityManager em;
 
     public List<ProvidedApp> findAllProvidedAppsByTag(AppTagType tagType) {
-        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN pa.appTags at JOIN FETCH pa.providedActions WHERE at.tagName = :tagName", ProvidedApp.class)
+        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN pa.appTags at WHERE at.tagName = :tagName", ProvidedApp.class)
                 .setParameter("tagName", tagType)
                 .getResultList();
     }
 
     public List<ProvidedApp> findAllProvidedApps() {
-        return em.createQuery("SELECT pa FROM ProvidedApp pa JOIN FETCH pa.providedActions", ProvidedApp.class).getResultList();
+        return em.createQuery("SELECT pa FROM ProvidedApp pa", ProvidedApp.class).getResultList();
     }
 
     public List<ConnectedApp> findConnectedAppsByUser(User user) {

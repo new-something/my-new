@@ -21,7 +21,7 @@ public class ConnectedAppService {
     private final ConnectedAppRepository connectedAppRepository;
 
     @Transactional
-    public Long connect(long appCode, User user) {
+    public ConnectedApp connect(long appCode, User user) {
         ProvidedApp providedApp = providedAppRepository.findById(appCode)
                 .orElseThrow(() -> new ServiceException(400, String.format("존재하지 않는 앱 코드 : %d", appCode)));
 
@@ -34,6 +34,14 @@ public class ConnectedAppService {
                 .build();
 
         connectedAppRepository.save(connectedApp);
-        return connectedApp.getConnectedId();
+        return connectedApp;
+    }
+
+    public void disconnect(Long providedAppCode, User user) {
+        ProvidedApp providedApp = ProvidedApp.of(providedAppCode);
+        ConnectedApp connectedApp = connectedAppRepository.findByProvidedAppAndUser(providedApp, user)
+                .orElseThrow(() -> new ServiceException(400, "기존에 연결되어 있지 않습니다."));
+
+        connectedAppRepository.delete(connectedApp);
     }
 }

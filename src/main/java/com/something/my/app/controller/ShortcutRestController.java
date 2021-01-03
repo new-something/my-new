@@ -16,8 +16,9 @@ public class ShortcutRestController {
 
     @GetMapping("/apis/shortcuts")
     public ResponseEntity<?> findAllByAppId(
-            @RequestParam(name = "app_id") Long appId
+            @RequestParam(name = "p_id") Long appCode
     ){
+
         return ResponseEntity.ok().build();
     }
 

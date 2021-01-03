@@ -4,6 +4,7 @@ import com.something.my.app.controller.dto.ConnectAppRequest;
 import com.something.my.app.domain.ConnectedApp;
 import com.something.my.app.service.AppQueryService;
 import com.something.my.app.service.ConnectedAppService;
+import com.something.my.app.service.dto.ConnectedAppResponse;
 import com.something.my.app.service.dto.ProvidedAppResponse;
 import com.something.my.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -46,20 +47,26 @@ public class AppRestController {
     }
 
     @PostMapping("/apis/apps")
-    public ResponseEntity<Void> connectApp(
+    public ResponseEntity<ConnectedAppResponse> connectApp(
             HttpServletRequest req,
             @RequestBody ConnectAppRequest request
-    ) throws URISyntaxException {
+    ) {
         request.validate();
         User session = (User) req.getSession().getAttribute(SESSION);
-        Long id = connectedAppService.connect(request.getAppCode(), session);
-        return ResponseEntity.created(new URI("/apis/apps/" + id)).build();
+        ConnectedApp app = connectedAppService.connect(request.getAppCode(), session);
+        return ResponseEntity
+                .status(200)
+                .header("Location", "/apis/apps/" + app.getConnectedId())
+                .body(new ConnectedAppResponse(app));
     }
 
     @DeleteMapping("/apis/apps/{id}")
     public ResponseEntity<Void> disconnectApp(
-            @PathVariable Long id
+            @PathVariable Long id,
+            HttpServletRequest request
     ) {
+        User session = (User) request.getSession().getAttribute(SESSION);
+        connectedAppService.disconnect(id, session);
         return ResponseEntity.noContent().build();
     }
 }
