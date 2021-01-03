@@ -33,7 +33,7 @@ class UserServiceTest {
     void saveTest() {
         //given
         User newUser = User.builder()
-                .id(ID)
+                .userId(ID)
                 .userName(USER_NAME)
                 .email(EMAIL)
                 .name(NAME)
@@ -44,7 +44,7 @@ class UserServiceTest {
 
         //then
         Assertions.assertNotNull(savedUser);
-        Assertions.assertNotNull(savedUser.getId());
+        Assertions.assertNotNull(savedUser.getUserId());
         Assertions.assertEquals(newUser.getUserName(), savedUser.getUserName());
         Assertions.assertEquals(newUser.getEmail(), savedUser.getEmail());
         Assertions.assertEquals(newUser.getName(), savedUser.getName());
@@ -56,7 +56,7 @@ class UserServiceTest {
      void findByIdTest() {
          //given
          User given = User.builder()
-                 .id(ID)
+                 .userId(ID)
                  .userName(USER_NAME)
                  .email(EMAIL)
                  .name(NAME)
