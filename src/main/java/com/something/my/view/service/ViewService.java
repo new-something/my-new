@@ -3,9 +3,7 @@ package com.something.my.view.service;
 import com.something.my.app.repository.UrlRedirectionRepository;
 import com.something.my.user.domain.User;
 import com.something.my.view.repository.ViewRepository;
-import com.something.my.view.service.dto.ConnectedAppResponse;
-import com.something.my.view.service.dto.DashBoardData;
-import com.something.my.view.service.dto.UrlRedirectionResponse;
+import com.something.my.view.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +18,22 @@ public class ViewService {
 
     private final UrlRedirectionRepository urlRedirectionRepository;
 
-    public DashBoardData dashboardData(User session) {
-        List<ConnectedAppResponse> connectedAppResponses = viewRepository.findConnectedAppsByUser(session)
+    public DashboardData dashboardData(User session) {
+        List<ConnectedAppInDashboard> connectedAppResponses = viewRepository.findConnectedAppsByUser(session)
                 .stream()
-                .map(ConnectedAppResponse::new)
+                .map(ConnectedAppInDashboard::new)
                 .collect(Collectors.toUnmodifiableList());
 
-        List<UrlRedirectionResponse> urlRedirectionResponses = urlRedirectionRepository.findAllByUser(session)
+        List<ShortcutInDashboard> shortcutResponses = viewRepository.findShortcutsByUser(session)
                 .stream()
-                .map(UrlRedirectionResponse::new)
+                .map(ShortcutInDashboard::new)
                 .collect(Collectors.toUnmodifiableList());
 
-        return new DashBoardData(connectedAppResponses, urlRedirectionResponses);
+        List<UrlRedirectionInDashboard> urlRedirectionResponses = urlRedirectionRepository.findAllByUser(session)
+                .stream()
+                .map(UrlRedirectionInDashboard::new)
+                .collect(Collectors.toUnmodifiableList());
+
+        return new DashboardData(connectedAppResponses, shortcutResponses, urlRedirectionResponses);
     }
 }

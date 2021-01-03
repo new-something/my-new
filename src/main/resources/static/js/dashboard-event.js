@@ -40,7 +40,7 @@ document.querySelector('#app-connect-btn').addEventListener('click', function ()
             connectedAppImg.alt = '';
             connectedAppImg.width = 48;
             connectedAppImg.setAttribute('code', app.appCode);
-            connectedAppImg.setAttribute('cid', app.connectedId);
+            connectedAppImg.setAttribute('connected-id', app.connectedId);
             connectedAppImg.setAttribute('domain', app.domain);
             connectedApp.append(connectedAppImg);
             // add new app btn 앞에 새로 연동된 앱을 insert 한다.
@@ -48,7 +48,7 @@ document.querySelector('#app-connect-btn').addEventListener('click', function ()
             document.querySelector('#app-detail-modal').classList.add('is-connected');
 
             document.querySelectorAll('#app-list-modal .app-item').forEach((el) => {
-                if (+el.getAttribute('pid') === +appCode) {
+                if (+el.getAttribute('app-code') === +appCode) {
                     el.classList.add('is-connected');
                 }
             });
@@ -69,8 +69,8 @@ document.querySelector('#app-disconnect-btn').addEventListener('click', function
             let appItems = document.querySelectorAll('#app-list-modal .app-item');
             console.log(appItems);
             appItems.forEach((el) => {
-                console.log(el.getAttribute('pid'));
-                if (+el.getAttribute('pid') === +appCode) {
+                console.log(el.getAttribute('app-code'));
+                if (+el.getAttribute('app-code') === +appCode) {
                     console.log('찾았다 요놈');
                     el.classList.remove('is-connected');
                 }
@@ -154,9 +154,10 @@ function renderAppList(apps) {
     console.log(apps);
     for (let app of apps) {
         let appWrapper = document.createElement('div');
-        appWrapper.setAttribute('pid', app.appCode);
+        appWrapper.setAttribute('app-code', app.appCode);
         if (app.connected) {
             appWrapper.classList.add('is-connected')
+            appWrapper.setAttribute('connected-id', app.connectedId);
         }
         appWrapper.classList.add('btn');
         appWrapper.classList.add('app-item');
@@ -212,7 +213,8 @@ function appItemClickHandler() {
         appDetailModal.classList.add('is-connected');
     }
 
-    let appCode = this.getAttribute('pid');
+    let appCode = this.getAttribute('app-code');
+    let connectedId = this.getAttribute('connected-id');
     let appIcon = this.getAttribute('icon-src');
     let appName = this.getAttribute('app-name');
     let appDescription = this.getAttribute('app-description');
@@ -227,7 +229,7 @@ function appItemClickHandler() {
     appDomainAnchor.href = appDomain;
 
 
-    axios.get('/apis/provided-actions?p_id=' + appCode).then(function (resp) {
+    axios.get('/apis/provided-actions?app_code=' + appCode).then(function (resp) {
         console.log(resp)
         let appActionItems = document.querySelector('#app-action-items');
         appActionItems.innerHTML = ''
@@ -264,7 +266,7 @@ function appItemClickHandler() {
             addBtn.classList.add('btn-add-shortcut');
             addBtn.textContent = 'Add to shortcut';
             addBtn.addEventListener('click', function() {
-                addAppShortcutHandler(providedAction.description, '/images/' + appIcon);
+                addAppShortcutHandler(connectedId, providedAction.description, '/images/' + appIcon, providedAction.providedActionId);
             });
             buttons.append(addBtn);
             item.append(connectedApp);
@@ -279,9 +281,9 @@ function appItemClickHandler() {
 }
 
 // 연동한 앱의 shortcut 추가 버튼
-function addAppShortcutHandler(providedActionDescription, appIcon) {
+function addAppShortcutHandler(connectedId, providedActionDescription, appIcon, providedActionId) {
     console.log('add app shortcut handler');
-    let appShortcutComponent = appShortcutItemComponent(providedActionDescription, appIcon);
+    let appShortcutComponent = appShortcutItemComponent(connectedId, providedActionDescription, appIcon, providedActionId);
     document.querySelector('.list-shortcuts').append(appShortcutComponent);
     document.querySelector('#add-new-app-btn').classList.add('hidden');
     appListModal.classList.remove('is-active');
@@ -295,7 +297,8 @@ function openConnectedAppDetailModal(appDetail){
     appDetailModal.classList.add('is-active');
     appDetailModal.classList.add('is-connected');
 
-    let appCode = appDetail.getAttribute('code');
+    let appCode = appDetail.getAttribute('app-code');
+    let connectedId = appDetail.getAttribute('connected-id');
     let appSrc = appDetail.getAttribute('src');
     let appName = appDetail.getAttribute('title');
     let appDescription = appDetail.getAttribute('description');
@@ -310,7 +313,7 @@ function openConnectedAppDetailModal(appDetail){
     appDomainAnchor.href = appDomain;
 
 
-    axios.get('/apis/provided-actions?p_id=' + appCode).then(function (resp) {
+    axios.get('/apis/provided-actions?app_code=' + appCode).then(function (resp) {
         console.log(resp)
         let appActionItems = document.querySelector('#app-action-items');
         appActionItems.innerHTML = ''
@@ -346,7 +349,7 @@ function openConnectedAppDetailModal(appDetail){
             addBtn.classList.add('btn-add-shortcut');
             addBtn.textContent = 'Add to shortcut';
             addBtn.addEventListener('click', function (){
-                addAppShortcutHandler(providedAction.description, appSrc);
+                addAppShortcutHandler(connectedId, providedAction.description, appSrc, providedAction.providedActionId);
             });
             buttons.append(addBtn);
             item.append(connectedApp);

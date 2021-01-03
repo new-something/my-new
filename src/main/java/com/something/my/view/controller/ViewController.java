@@ -2,7 +2,7 @@ package com.something.my.view.controller;
 
 import com.something.my.user.domain.User;
 import com.something.my.view.service.ViewService;
-import com.something.my.view.service.dto.DashBoardData;
+import com.something.my.view.service.dto.DashboardData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +26,8 @@ public class ViewController {
             Model model
     ){
         User session = (User) request.getSession().getAttribute(SESSION);
-        DashBoardData dashBoardData = viewService.dashboardData(session);
-        model.addAttribute("dashBoardData", dashBoardData);
+        DashboardData dashBoardData = viewService.dashboardData(session);
+        model.addAttribute("dashboardData", dashBoardData);
         return "dashboard";
     }
 

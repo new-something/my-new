@@ -24,6 +24,10 @@ public class Shortcut {
 
     private String destinationUrl;
 
+    private String description;
+
+    private String appIcon;
+
     @Enumerated(EnumType.STRING)
     private ShortcutType type;
 

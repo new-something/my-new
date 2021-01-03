@@ -18,7 +18,7 @@ public class ProvidedActionRestController {
 
     @GetMapping("/apis/provided-actions")
     public ResponseEntity<List<ProvidedActionResponse>> findByAppCode(
-            @RequestParam(name = "p_id") Long appCode
+            @RequestParam(name = "app_code") Long appCode
     )
     {
         return ResponseEntity.ok(providedActionService.findAllByAppCode(appCode));

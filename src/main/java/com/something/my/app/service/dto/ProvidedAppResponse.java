@@ -14,6 +14,7 @@ public final class ProvidedAppResponse {
     private final String description;
 
     private boolean connected;
+    private long connectedId;
 
     public ProvidedAppResponse(ProvidedApp providedApp) {
         this.appCode = providedApp.getAppCode();
@@ -24,7 +25,8 @@ public final class ProvidedAppResponse {
         this.connected = false;
     }
 
-    public void connected() {
+    public void connected(long connectedId) {
         this.connected = true;
+        this.connectedId = connectedId;
     }
 }

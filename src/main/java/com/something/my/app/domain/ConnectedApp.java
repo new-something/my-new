@@ -24,7 +24,7 @@ public class ConnectedApp {
     @SequenceGenerator(name = "connectedAppIdSeqGen", sequenceName = "CONNECTED_APP_ID_SEQ_GEN", allocationSize = 20)
     private Long connectedId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "app_code")
     private ProvidedApp providedApp;
 
@@ -32,7 +32,7 @@ public class ConnectedApp {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "app", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "app")
     private final Set<Shortcut> shortcuts = new LinkedHashSet<>();
 }
 

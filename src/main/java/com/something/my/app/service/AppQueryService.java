@@ -1,7 +1,6 @@
 package com.something.my.app.service;
 
 import com.something.my.app.domain.AppTagType;
-import com.something.my.app.domain.ProvidedApp;
 import com.something.my.app.repository.AppRepository;
 import com.something.my.app.service.dto.ConnectedAppResponse;
 import com.something.my.app.service.dto.ProvidedAppResponse;
@@ -58,7 +57,7 @@ public class AppQueryService {
             for (ConnectedAppResponse connectedApp : connectedApps) {
                 if (connectedApp.getAppCode() == providedAppResponse.getAppCode()) {
                     log.info("{}, {}", connectedApp, providedAppResponse);
-                    providedAppResponse.connected();
+                    providedAppResponse.connected(connectedApp.getConnectedId());
                     break;
                 }
             }

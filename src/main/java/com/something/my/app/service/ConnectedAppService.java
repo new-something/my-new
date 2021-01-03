@@ -37,11 +37,17 @@ public class ConnectedAppService {
         return connectedApp;
     }
 
+    @Transactional
     public void disconnect(Long providedAppCode, User user) {
         ProvidedApp providedApp = ProvidedApp.of(providedAppCode);
         ConnectedApp connectedApp = connectedAppRepository.findByProvidedAppAndUser(providedApp, user)
                 .orElseThrow(() -> new ServiceException(400, "기존에 연결되어 있지 않습니다."));
 
         connectedAppRepository.delete(connectedApp);
+    }
+
+    public ConnectedApp findById(long id) {
+        return connectedAppRepository.findById(id)
+                .orElseThrow(() -> new ServiceException(400, "app connection 이 존재하지 않습니다."));
     }
 }

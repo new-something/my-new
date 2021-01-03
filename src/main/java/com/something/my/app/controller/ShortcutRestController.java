@@ -1,12 +1,12 @@
 package com.something.my.app.controller;
 
+import com.something.my.app.controller.dto.CreateShortcutRequest;
+import com.something.my.app.domain.Shortcut;
 import com.something.my.app.service.ShortcutService;
+import com.something.my.view.service.dto.ShortcutResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,8 +16,8 @@ public class ShortcutRestController {
 
     @GetMapping("/apis/shortcuts")
     public ResponseEntity<?> findAllByAppId(
-            @RequestParam(name = "p_id") Long appCode
-    ){
+            @RequestParam(name = "app_code") Long appCode
+    ) {
 
         return ResponseEntity.ok().build();
     }
@@ -25,13 +25,20 @@ public class ShortcutRestController {
     @GetMapping("/apis/shortcuts/{id}")
     public ResponseEntity<?> findById(
             @PathVariable Long id
-    ){
+    ) {
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/apis/shortcuts")
-    public ResponseEntity<Void> create() throws URISyntaxException {
-        return ResponseEntity.created(new URI("/apis/shortcuts/")).build();
+    public ResponseEntity<ShortcutResponse> create(
+            @RequestBody CreateShortcutRequest request
+    ) {
+        request.validate();
+        Shortcut shortcut = shortcutService.create(request.getConnectedId(), request.getShortcutKeyword(), request.getProvidedActionId());
+        return ResponseEntity
+                .status(200)
+                .header("location", "/apis/shortcuts/" + shortcut.getShortcutId())
+                .body(new ShortcutResponse(shortcut));
     }
 
     @PutMapping("/apis/shortcuts")

@@ -6,12 +6,12 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public final class UrlRedirectionResponse {
-    private long urlRedirectionId;
-    private String path;
-    private String destinationUrl;
+public final class UrlRedirectionInDashboard {
+    private final long urlRedirectionId;
+    private final String path;
+    private final String destinationUrl;
 
-    public UrlRedirectionResponse(UrlRedirection urlRedirection){
+    public UrlRedirectionInDashboard(UrlRedirection urlRedirection){
         this.urlRedirectionId = urlRedirection.getUrlRedirectionId();
         this.path = urlRedirection.getPath();
         this.destinationUrl = urlRedirection.getDestinationUrl();

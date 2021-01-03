@@ -1,7 +1,7 @@
-const KEYWORD_EXPRESSION = /^[a-z]{2,}\/[a-z]+$/gi;
+const KEYWORD_EXPRESSION = /^[a-z]{2,}(\/[a-z]+)?$/gi;
 const KEYWORD_REGEX = new RegExp(KEYWORD_EXPRESSION);
 
-function appShortcutItemComponent(providedActionDescription, appLogoSrc){
+function appShortcutItemComponent(connectedId, providedActionDescription, appLogoSrc, providedActionId){
     let wrapper = document.createElement('div');
     wrapper.classList.add('item-shortcut');
     wrapper.classList.add('is-editing');
@@ -51,7 +51,6 @@ function appShortcutItemComponent(providedActionDescription, appLogoSrc){
 
     wrapper.append(shortcut);
 
-
     let app = document.createElement('div');
     app.classList.add('app');
 
@@ -84,8 +83,18 @@ function appShortcutItemComponent(providedActionDescription, appLogoSrc){
     saveBtnDiv.classList.add('btn');
     saveBtnDiv.classList.add('btn-save');
     saveBtnDiv.classList.add('is-disabled');
-    saveBtnDiv.addEventListener('click', function () {
+    saveBtnDiv.addEventListener('click', function (e) {
         console.log('clicked save app shortcut btn');
+        axios.post('/apis/shortcuts', {connectedId, providedActionId, shortcutKeyword : shortcutKeywordDiv.textContent}).then(function (resp) {
+            console.log(resp.data);
+            // refactor target : dom 구조가 깨지면 해당코드도 깨진다..
+            let shortcutParentDiv = e.target.parentElement.parentElement.parentElement;
+            shortcutParentDiv.classList.remove('is-editing');
+            shortcutParentDiv.setAttribute('shortcut-id', resp.data.shortcutId);
+            shortcutParentDiv.setAttribute('connected-id', connectedId);
+        }).catch(function (err) {
+            console.log(err);
+        })
     });
 
     let saveImg = document.createElement('img');
