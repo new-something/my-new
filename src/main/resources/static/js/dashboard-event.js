@@ -83,13 +83,6 @@ document.querySelector('#app-disconnect-btn').addEventListener('click', function
                     el.remove();
                 }
             });
-
-            let providedApps = document.querySelectorAll('#app-list-modal .app-item');
-            providedApps.forEach((el) => {
-                if (+el.getAttribute('pid') === +appCode) {
-
-                }
-            })
         }).catch(function (err) {
             console.log(err);
         });
