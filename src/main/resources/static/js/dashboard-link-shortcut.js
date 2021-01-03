@@ -12,6 +12,9 @@ function urlShortcutItemComponent() {
     shortcutDiv.classList.add('shortcut');
 
     let keywordDiv = document.createElement('div');
+    keywordDiv.classList.add('shortcut-keyword');
+    keywordDiv.setAttribute('contenteditable', 'true');
+    keywordDiv.setAttribute('data-placeholder', 'New shortcut here...');
     keywordDiv.addEventListener('keyup', function () {
         if (destinationUrlDiv.textContent.match(URL_REGEX) && this.textContent.match(ALPHA_REGX)) {
             urlShortcutSaveBtnDiv.classList.remove('is-disabled');
@@ -20,9 +23,6 @@ function urlShortcutItemComponent() {
 
         urlShortcutSaveBtnDiv.classList.add('is-disabled');
     });
-    keywordDiv.classList.add('shortcut-keyword');
-    keywordDiv.setAttribute('contenteditable', 'true');
-    keywordDiv.setAttribute('data-placeholder', 'New shortcut here...');
 
     let shortcutUrlDiv = document.createElement('div');
     shortcutUrlDiv.classList.add('shortcut-url');
