@@ -20,7 +20,7 @@ public class UrlRedirectionRestController {
 
     private final UrlRedirectionService urlRedirectionService;
 
-    @GetMapping("/apis/url-redirections/{id}")
+    @GetMapping("/a/url-redirections/{id}")
     public ResponseEntity<?> findById(
             @PathVariable Long id
     ){
@@ -28,13 +28,13 @@ public class UrlRedirectionRestController {
         return ResponseEntity.ok(urlRedirection);
     }
 
-    @PostMapping("/apis/url-redirections")
+    @PostMapping("/a/url-redirections")
     public ResponseEntity<Void> create(
             HttpServletRequest req,
             @RequestBody CreateUrlRedirectionRequest request
     ) throws URISyntaxException {
         User session = (User) req.getSession().getAttribute(SESSION);
         UrlRedirection urlRedirection = urlRedirectionService.create(request.getPath(), session, request.getDestinationUrl());
-        return ResponseEntity.created(new URI("/apis/url-redirections/" + urlRedirection.getUrlRedirectionId())).build();
+        return ResponseEntity.created(new URI("/a/url-redirections/" + urlRedirection.getUrlRedirectionId())).build();
     }
 }

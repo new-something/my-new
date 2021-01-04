@@ -19,7 +19,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new IndexInterceptor()).addPathPatterns("").addPathPatterns("/");
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/u/**").addPathPatterns("/apis/**");
+        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/u/**").addPathPatterns("/a/**");
         registry.addInterceptor(new TrialRouteInterceptor()).addPathPatterns(TRIAL_ROUTES);
     }
 

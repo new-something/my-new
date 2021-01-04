@@ -16,7 +16,7 @@ public class ProvidedActionRestController {
 
     private final ProvidedActionService providedActionService;
 
-    @GetMapping("/apis/provided-actions")
+    @GetMapping("/a/provided-actions")
     public ResponseEntity<List<ProvidedActionResponse>> findByAppCode(
             @RequestParam(name = "app_code") Long appCode
     )

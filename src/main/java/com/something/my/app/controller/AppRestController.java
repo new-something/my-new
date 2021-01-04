@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import static com.something.my.global.utils.Keys.SESSION;
@@ -28,7 +26,7 @@ public class AppRestController {
 
     private final ConnectedAppService connectedAppService;
 
-    @GetMapping("/apis/apps")
+    @GetMapping("/a/apps")
     public ResponseEntity<List<ProvidedAppResponse>> findApps(
             HttpServletRequest request,
             @RequestParam String tag
@@ -39,14 +37,14 @@ public class AppRestController {
         return ResponseEntity.ok(apps);
     }
 
-    @GetMapping("/apis/apps/{id}")
+    @GetMapping("/a/apps/{id}")
     public ResponseEntity<ConnectedApp> findOne(
             @PathVariable Long id
     ) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/apis/apps")
+    @PostMapping("/a/apps")
     public ResponseEntity<ConnectedAppResponse> connectApp(
             HttpServletRequest req,
             @RequestBody ConnectAppRequest request
@@ -56,11 +54,11 @@ public class AppRestController {
         ConnectedApp app = connectedAppService.connect(request.getAppCode(), session);
         return ResponseEntity
                 .status(200)
-                .header("Location", "/apis/apps/" + app.getConnectedId())
+                .header("Location", "/a/apps/" + app.getConnectedId())
                 .body(new ConnectedAppResponse(app));
     }
 
-    @DeleteMapping("/apis/apps/{id}")
+    @DeleteMapping("/a/apps/{id}")
     public ResponseEntity<Void> disconnectApp(
             @PathVariable Long id,
             HttpServletRequest request

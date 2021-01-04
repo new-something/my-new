@@ -27,7 +27,7 @@ document.querySelector('#app-detail-modal-close-btn').addEventListener('click', 
 // 앱 디테일 모달에서 앱 연동 버튼
 document.querySelector('#app-connect-btn').addEventListener('click', function () {
     let appCode = document.querySelector("#app-detail-modal").getAttribute('app-code');
-    axios.post('/apis/apps', {appCode})
+    axios.post('/a/apps', {appCode})
         .then(function (resp) {
             console.log(resp);
             let app = resp.data;
@@ -63,7 +63,7 @@ document.querySelector('#app-disconnect-btn').addEventListener('click', function
     let disconnect = confirm('If you disconnect Asana, all the Asana shortcuts will be deleted. Are you sure to continue to disconnect?');
     if (disconnect) {
         let appCode = document.querySelector('#app-detail-modal').getAttribute('app-code');
-        axios.delete('/apis/apps/' + appCode).then(function (resp) {
+        axios.delete('/a/apps/' + appCode).then(function (resp) {
             console.log(resp);
             document.querySelector('#app-detail-modal').classList.remove('is-connected');
             let appItems = document.querySelectorAll('#app-list-modal .app-item');
@@ -98,7 +98,7 @@ function appListTagChangeHandler() {
     console.log(this.value);
     console.log(this.value === undefined);
     let tag = this.value === undefined ? "ALL" : this.value;
-    axios.get('/apis/apps?tag=' + tag)
+    axios.get('/a/apps?tag=' + tag)
         .then(function (response) {
             // handle success
             let appListWrapper = document.querySelector('.app-list');
@@ -229,7 +229,7 @@ function appItemClickHandler() {
     appDomainAnchor.href = appDomain;
 
 
-    axios.get('/apis/provided-actions?app_code=' + appCode).then(function (resp) {
+    axios.get('/a/provided-actions?app_code=' + appCode).then(function (resp) {
         console.log(resp)
         let appActionItems = document.querySelector('#app-action-items');
         appActionItems.innerHTML = ''
@@ -313,7 +313,7 @@ function openConnectedAppDetailModal(appDetail){
     appDomainAnchor.href = appDomain;
 
 
-    axios.get('/apis/provided-actions?app_code=' + appCode).then(function (resp) {
+    axios.get('/a/provided-actions?app_code=' + appCode).then(function (resp) {
         console.log(resp)
         let appActionItems = document.querySelector('#app-action-items');
         appActionItems.innerHTML = ''

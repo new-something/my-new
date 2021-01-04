@@ -14,7 +14,7 @@ public class ShortcutRestController {
 
     private final ShortcutService shortcutService;
 
-    @GetMapping("/apis/shortcuts")
+    @GetMapping("/a/shortcuts")
     public ResponseEntity<?> findAllByAppId(
             @RequestParam(name = "app_code") Long appCode
     ) {
@@ -22,14 +22,14 @@ public class ShortcutRestController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/apis/shortcuts/{id}")
+    @GetMapping("/a/shortcuts/{id}")
     public ResponseEntity<?> findById(
             @PathVariable Long id
     ) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/apis/shortcuts")
+    @PostMapping("/a/shortcuts")
     public ResponseEntity<ShortcutResponse> create(
             @RequestBody CreateShortcutRequest request
     ) {
@@ -37,16 +37,16 @@ public class ShortcutRestController {
         Shortcut shortcut = shortcutService.create(request.getConnectedId(), request.getShortcutKeyword(), request.getProvidedActionId());
         return ResponseEntity
                 .status(200)
-                .header("location", "/apis/shortcuts/" + shortcut.getShortcutId())
+                .header("location", "/a/shortcuts/" + shortcut.getShortcutId())
                 .body(new ShortcutResponse(shortcut));
     }
 
-    @PutMapping("/apis/shortcuts")
+    @PutMapping("/a/shortcuts")
     public ResponseEntity<Void> update() {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/apis/shortcuts")
+    @DeleteMapping("/a/shortcuts")
     public ResponseEntity<Void> delete() {
         return ResponseEntity.noContent().build();
     }
